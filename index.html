@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Choose Team Test</title>
+	
+	<script>
+		var printTeam = function(){
+			var output = document.getElementById('team');
+			
+			var radio = document.getElementById('Russia');
+			
+			if(radio.checked){
+				output.textContent = "Team: " + radio.value;
+			}
+			
+			radio = document.getElementById('Egypt');
+			if(radio.checked){
+				output.textContent = "Team: " + radio.value;
+			}
+			
+			radio = document.getElementById('Saudi Arabia');
+			if(radio.checked){
+				output.textContent = "Team: " + radio.value;
+			}
+			
+			radio = document.getElementById('Uruguay');
+			if(radio.checked){
+				output.textContent = "Team: " + radio.value;
+			}
+		}
+	</script>
+<head>
+<body>
+	<h1>Choose Winner of Group A</h1>
+	
+	<input id="Russia" type="radio" name="gA1" value="Russia"><label for="Russia">Russia (31)</label><br>
+	<input id="Egypt" type="radio" name="gA1" value="Egypt" ><label for="Egypt">Egypt (26)</label><br>
+	<input id="Saudi Arabia" type="radio" name="gA1" value="Saudi Arabia"><label for="Saudi Arabia">Saudi Arabia (32)</label><br>
+	<input id="Uruguay" type="radio" name="gA1" value="Uruguay"><label for="Uruguay">Uruguay (16)</label><br>
+	
+	<button onclick="printTeam()">Submit</button>
+	
+	<p id="team">Team:</p>
+<body>
+<html>
