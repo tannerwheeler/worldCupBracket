@@ -1,0 +1,49 @@
+
+.bracket {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.stage {
+	display: flex;
+	flex-direction: column;
+	padding: 50px;
+}
+
+
+.game2 {
+	margin-top: 65px;
+	margin-bottom: 65px;
+}
+
+.game11 {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.game {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+td {
+	text-align: center;
+	width: 100px;
+	word-wrap: normal;
+}
+
+.symbol {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+.team {
+	text-decoration: underline;
+	font-variant: small-caps;
+}
+
+table {
+	border: solid;
+}

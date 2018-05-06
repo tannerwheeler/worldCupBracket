@@ -43,7 +43,7 @@ class User(models.Model):
 	third = models.CharField(max_length=30, default="", blank=True)
 	
 	def __str__(self):
-		return self.firstName + " " + self.lastName
+		return self.firstName + self.lastName
 	
 	
 class Group(models.Model):
