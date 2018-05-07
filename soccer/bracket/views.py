@@ -6,7 +6,11 @@ from .models import *
 # Create your views here.
 
 def index(request):
-	return HttpResponse("Hello Spencer")
+	return render(request, 'bracket/main.html',)
+	
+	
+def createUser(request):
+	return render(request, 'bracket/createUser.html',)
 	
 
 def choice(request, user_id, group_id):

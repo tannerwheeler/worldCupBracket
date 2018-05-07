@@ -2,11 +2,20 @@ from django.db import models
 
 # Create your models here.
 
+class UserGroup(models.Model):
+	name = models.CharField(max_length=30)
+	userName = models.CharField(max_length=30)
+	password = models.CharField(max_length=30)
+	groupID = models.CharField(max_length=10)
+	
+
 class User(models.Model):
 	firstName = models.CharField(max_length=30)
 	lastName = models.CharField(max_length=30)
+	userName = models.CharField(max_length=30)
 	password = models.CharField(max_length=30)
 	points = models.IntegerField(default=0)
+	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)
 
 	groupA1 = models.CharField(max_length=30, default="", blank=True)
 	groupA2 = models.CharField(max_length=30, default="", blank=True)
@@ -43,7 +52,7 @@ class User(models.Model):
 	third = models.CharField(max_length=30, default="", blank=True)
 	
 	def __str__(self):
-		return self.firstName + self.lastName
+		return self.userName
 	
 	
 class Group(models.Model):
@@ -62,3 +71,10 @@ class Team(models.Model):
 	
 	def __str__(self):
 		return self.name
+		
+	
+class Admin(models.Model):
+	firstName = models.CharField(max_length=30)
+	lastName = models.CharField(max_length=30)
+	userName = models.CharField(max_length=30)
+	password = models.CharField(max_length=30)

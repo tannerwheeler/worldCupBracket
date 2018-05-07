@@ -1,0 +1,55 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Main Menu</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
+</head>
+<body>
+	<header>
+		<a href="{% url 'bracket:index' %}"><h1>World Cup 2018 Bracket Tournament</h1></a>
+	</header>
+	
+	<main>
+		<div class="login">
+			<h3>User Login</h3>
+
+			<form action="" method="POST">
+			{% csrf_token%}
+				<label for="userNameU">USER NAME:</label><input type="text" name="userNameU" id="userNameU"><br>
+				<label for="passwordU">PASSWORD:</label><input type="password" name="password" id="passwordU"><br>
+				<input type="submit" value="LOGIN" class="main"><br><br>
+			</form>
+			
+			<a href="{% url 'bracket:createUser' %}"><button class="main">Create New User</button></a>
+		</div>
+	
+		<div class="login">
+			<h3>Group Login</h3>
+
+			<form action="" method="POST">
+			{% csrf_token%}
+				<label for="userNameG">GROUP NAME:</label><input type="text" name="userNameG" id="userNameG"><br>
+				<label for="passwordG">PASSWORD:</label><input type="password" name="password" id="passwordG"><br>
+				<input type="submit" value="LOGIN" class="main"><br><br>
+			</form>
+			
+			<button class="main" href="">Create New Group</button>
+		</div>
+		
+		<div class="login">
+			<h3>Admin Login</h3>
+
+			<form action="" method="POST">
+			{% csrf_token%}
+				<label for="userNameA">NAME:</label><input type="text" name="userNameA" id="userNameA"><br>
+				<label for="passwordA">PASSWORD:</label><input type="password" name="password" id="passwordA"><br>
+				<input type="submit" value="LOGIN" class="main"><br><br>
+			</form>
+		</div>
+
+		</main>
+	
+</body>
+</html>

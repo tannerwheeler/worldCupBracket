@@ -1,0 +1,142 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create User</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
+	
+	<script>
+		var check = function (){
+			var o = document.getElementById('password');
+			var orig = o.value;
+			var v = document.getElementById('passwordC');
+			var verif = v.value;
+			var error = document.getElementById('passError');
+			var button = document.getElementById('submit');
+			
+			if(orig != verif){
+				error.textContent = "Your password confirmation doesn't match!";
+				button.disabled = true;
+			} else {
+				error.textContent = "";
+				check2();
+			}
+		}
+		
+		var check2 = function(){
+			var fn = document.getElementById('firstName').value;
+			var fne = document.getElementById('fnError');
+			var ln = document.getElementById('lastName').value;
+			var lne = document.getElementById('lnError');
+			var un = document.getElementById('userName').value;
+			var une = document.getElementById('unError');
+			var p = document.getElementById('password').value;
+			var pe = document.getElementById('passError');
+			var pc = document.getElementById('passwordC').value;
+			var g = document.getElementById('groupID').value;
+			var ge = document.getElementById('gError');
+			var button = document.getElementById('submit');
+			
+			if(!fn || !ln || !un || !p || !pc || !g || p != pc){
+				if(!fn){
+					fne.textContent = "Please Enter your First name.";
+				}
+				
+				if(!ln){
+					lne.textContent = "Please Enter your Last name.";
+				}
+			
+				if(!un){
+					une.textContent = "Please Enter a User Name.";
+				}
+				
+				if(pc != p){
+					pe.textContent = "Your password confirmation doesn't match.";
+				}
+			
+				if(!p){
+					pe.textContent = "Please Enter a Password.";
+				}
+				
+				ge.textContent = "Fix boxes above and then reenter the Group ID.";
+				g = "";
+		
+			} else {
+				fne.textContent = "";
+				lne.textContent = "";
+				une.textContent = "";
+				pe.textContent = "";
+				ge.textContent = "";
+				
+				button.disabled = false;
+			}
+		}
+		
+		var check3 = function(){
+			var fn = document.getElementById('firstName').value;
+			var fne = document.getElementById('fnError');
+			
+			if(fn){
+				fne.textContent = "";
+			}
+		}
+		
+		var check4 = function(){
+			var ln = document.getElementById('lastName').value;
+			var lne = document.getElementById('lnError');
+			
+			if(ln){
+				lne.textContent = "";
+			}
+		}
+		
+		var check5 = function(){
+			var un = document.getElementById('userName').value;
+			var une = document.getElementById('unError');
+			
+			if(un){
+				une.textContent = "";
+			}
+		}
+	</script>
+</head>
+<body>
+	<header>
+		<a href="{% url 'bracket:index' %}"><h1>World Cup 2018 Bracket Tournament</h1></a>
+	</header>
+	
+	<form action="" method="POST">
+	{% csrf_token %}
+		<main>
+			<h2>Create a User</h2>
+			
+			<label for="firstName">First Name:</label>
+			<input type="text" name="firstName" id="firstName" oninput="check3()">
+			<p id="fnError" class="error"></p>
+			
+			<label for="lastName">Last Name:</label>
+			<input type="text" name="lastName" id="lastName" oninput="check4()">
+			<p id="lnError" class="error"></p>
+			
+			<label for="userName">User Name:</label>
+			<input type="text" name="userName" id="userName" oninput="check5()">
+			<p id="unError" class="error"></p>
+			
+			<label for="password">Password:</label>
+			<input type="password" name="password" id="password"><br><br>
+			
+			<label for="passwordC">Confirm Password:</label>
+			<input type="password" name="passwordC" id="passwordC" oninput="check()">
+			<p id="passError" class="error"></p>
+			
+			<label for="groupID">Group ID:</label>
+			<input type="text" name="groupID" id="groupID" oninput="check2()">
+			<p id="gError" class="error"></p>
+			
+			<input type="submit" value="Submit" id="submit" disabled>
+		</main>
+	</form>
+		
+</body>
+</html>
