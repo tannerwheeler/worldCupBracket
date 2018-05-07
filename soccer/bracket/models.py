@@ -8,6 +8,9 @@ class UserGroup(models.Model):
 	password = models.CharField(max_length=30)
 	groupID = models.CharField(max_length=10)
 	
+	def __str__(self):
+		return self.name
+	
 
 class User(models.Model):
 	firstName = models.CharField(max_length=30)
@@ -78,3 +81,6 @@ class Admin(models.Model):
 	lastName = models.CharField(max_length=30)
 	userName = models.CharField(max_length=30)
 	password = models.CharField(max_length=30)
+	
+	def __str__(self):
+		return self.firstName + " " + self.lastName

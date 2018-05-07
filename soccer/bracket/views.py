@@ -15,6 +15,18 @@ def createUser(request):
 def createGroup(request):
 	return render(request, 'bracket/createGroup.html',)
 	
+def groupCreate(request):
+	nameG = request.POST.get('firstName')
+	userNameG = request.POST.get('userName')
+	passwordG = request.POST.get('password')
+	groupIDG = request.POST.get('groupID')
+	
+	
+	group = UserGroup(name=nameG, userName=userNameG, password=passwordG, groupID=groupIDG)
+	group.save()
+
+	return	HttpResponseRedirect(reverse('bracket:index',))
+	
 
 def choice(request, user_id, group_id):
 	person = User.objects.get(id=user_id)

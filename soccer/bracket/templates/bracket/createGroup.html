@@ -58,7 +58,6 @@
 		
 			} else {
 				fne.textContent = "";
-				lne.textContent = "";
 				une.textContent = "";
 				pe.textContent = "";
 				ge.textContent = "";
@@ -91,7 +90,7 @@
 		<a href="{% url 'bracket:index' %}"><h1>World Cup 2018 Bracket Tournament</h1></a>
 	</header>
 	
-	<form action="" method="POST">
+	<form action="{% url 'bracket:groupCreate' %}" method="POST">
 	{% csrf_token %}
 		<main>
 			<h2>Create a Group</h2>
