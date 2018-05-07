@@ -12,6 +12,9 @@ def index(request):
 def createUser(request):
 	return render(request, 'bracket/createUser.html',)
 	
+def createGroup(request):
+	return render(request, 'bracket/createGroup.html',)
+	
 
 def choice(request, user_id, group_id):
 	person = User.objects.get(id=user_id)
