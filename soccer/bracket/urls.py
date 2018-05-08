@@ -6,6 +6,7 @@ app_name = 'bracket'
 urlpatterns = [
 	path('', views.index, name='index'),
 	path('user/', views.createUser, name='createUser'),
+	path('user/create/', views.userCreate, name='userCreate'),
 	path('group/', views.createGroup, name='createGroup'),
 	path('group/create', views.groupCreate, name='groupCreate'),
 	#path('userAdmin/', views., name=''),

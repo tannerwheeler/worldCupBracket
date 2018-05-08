@@ -12,6 +12,37 @@ def index(request):
 def createUser(request):
 	return render(request, 'bracket/createUser.html',)
 	
+	
+def userCreate(request):
+	firstNameG = request.POST.get('firstName')
+	lastNameG = request.POST.get('lastName')
+	userNameG = request.POST.get('userName')
+	passwordG = request.POST.get('password')
+	groupIDG = request.POST.get('groupID')
+	
+	try:
+		existingGroup = UserGroup.objects.get(groupID=groupIDG)
+		
+		try:
+			existingUserName = User.objects.get(userName=userNameG)
+			existing = True
+		except:
+			existing = False
+		
+		if(existing):
+			return render(request, 'bracket/createUser.html', {'error_message': "USERNAME IS ALREADY BEING USED"})
+		else:
+
+			existingGroup.user_set.create(firstName=firstNameG, lastName=lastNameG, userName=userNameG, password=passwordG)
+			existingGroup.save()
+			
+	except:
+		return render(request, 'bracket/createUser.html', {'error_message': "INVALID GROUP ID"})
+
+	return	HttpResponseRedirect(reverse('bracket:index',))
+	
+	
+	
 def createGroup(request):
 	return render(request, 'bracket/createGroup.html',)
 	
@@ -21,11 +52,27 @@ def groupCreate(request):
 	passwordG = request.POST.get('password')
 	groupIDG = request.POST.get('groupID')
 	
-	
-	group = UserGroup(name=nameG, userName=userNameG, password=passwordG, groupID=groupIDG)
-	group.save()
+	try:
+		existingGroupID = UserGroup.objects.get(groupID=groupIDG)
+		existing = True
+	except:
+		existing = False
+		
+	try:
+		existingUserName = UserGroup.objects.get(userName=userNameG)
+		existing = True
+	except:
+		existing = existing
+		
+	if(existing):
+		#return HttpResponse("if")
+		return render(request, 'bracket/createGroup.html', {'error_message': "GROUP ID OR USERNAME IS ALREADY BEING USED"})
+	else:
+		#return HttpResponse("else")
+		group = UserGroup(name=nameG, userName=userNameG, password=passwordG, groupID=groupIDG)
+		group.save()
 
-	return	HttpResponseRedirect(reverse('bracket:index',))
+		return	HttpResponseRedirect(reverse('bracket:index',))
 	
 
 def choice(request, user_id, group_id):

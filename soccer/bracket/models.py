@@ -9,7 +9,7 @@ class UserGroup(models.Model):
 	groupID = models.CharField(max_length=10)
 	
 	def __str__(self):
-		return self.name
+		return self.userName
 	
 
 class User(models.Model):
@@ -83,4 +83,4 @@ class Admin(models.Model):
 	password = models.CharField(max_length=30)
 	
 	def __str__(self):
-		return self.firstName + " " + self.lastName
+		return self.userName

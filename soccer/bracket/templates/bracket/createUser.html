@@ -106,7 +106,7 @@
 		<a href="{% url 'bracket:index' %}"><h1>World Cup 2018 Bracket Tournament</h1></a>
 	</header>
 	
-	<form action="" method="POST">
+	<form action="{% url 'bracket:userCreate' %}" method="POST">
 	{% csrf_token %}
 		<main>
 			<h2>Create a User</h2>
@@ -133,6 +133,7 @@
 			<label for="groupID">Group ID:</label>
 			<input type="text" name="groupID" id="groupID" oninput="check2()">
 			<p id="gError" class="error"></p>
+			<p id="Error" class="error">{{ error_message }}</p>
 			
 			<input type="submit" value="Submit" id="submit" disabled>
 		</main>
