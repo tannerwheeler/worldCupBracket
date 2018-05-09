@@ -47,14 +47,10 @@
 		{% for team in group.team_set.all %}
 			<input id="{{ team.name }}" type="radio" name="{{ group.name }}2" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label><br><br>
 		{% endfor %}
-		<!--<input id="Russia" type="radio" name="gA1" value="Russia"><label for="Russia">Russia (31)</label><br>
-		<input id="Egypt" type="radio" name="gA1" value="Egypt" ><label for="Egypt">Egypt (26)</label><br>
-		<input id="Saudi Arabia" type="radio" name="gA1" value="Saudi Arabia"><label for="Saudi Arabia">Saudi Arabia (32)</label><br>
-		<input id="Uruguay" type="radio" name="gA1" value="Uruguay"><label for="Uruguay">Uruguay (16)</label><br>-->
+
 	
 		<button type=submit">Submit</button>
 	</form>
-	<!--<p id="team">Team:</p>-->
 	
 	<br><br>
 		<table>
@@ -170,7 +166,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupC1 %}
+				<p class="team">{{ user.groupC1 }}</p>
+			{% else %}
 				<p class="team">C1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -189,7 +189,11 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupD1 %}
+				<p class="team">{{ user.groupD1 }}</p>
+			{% else %}
 				<p class="team">D1</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -219,7 +223,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupD2 %}
+				<p class="team">{{ user.groupD2 }}</p>
+			{% else %}
 				<p class="team">D2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -239,7 +247,11 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupC2 %}
+				<p class="team">{{ user.groupC2 }}</p>
+			{% else %}
 				<p class="team">C2</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -266,7 +278,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupE1 %}
+				<p class="team">{{ user.groupE1 }}</p>
+			{% else %}
 				<p class="team">E1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -285,7 +301,11 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupF1 %}
+				<p class="team">{{ user.groupF1 }}</p>
+			{% else %}
 				<p class="team">F1</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -314,7 +334,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupF2 %}
+				<p class="team">{{ user.groupF2 }}</p>
+			{% else %}
 				<p class="team">F2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -334,7 +358,11 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupE2 %}
+				<p class="team">{{ user.groupE2 }}</p>
+			{% else %}
 				<p class="team">E2</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -363,7 +391,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupG1 %}
+				<p class="team">{{ user.groupG1 }}</p>
+			{% else %}
 				<p class="team">G1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -382,7 +414,11 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupH1 %}
+				<p class="team">{{ user.groupH1 }}</p>
+			{% else %}
 				<p class="team">H1</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -411,7 +447,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupH2 %}
+				<p class="team">{{ user.groupH2 }}</p>
+			{% else %}
 				<p class="team">H2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -430,7 +470,11 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupG2 %}
+				<p class="team">{{ user.groupG2 }}</p>
+			{% else %}
 				<p class="team">G2</p>
+			{% endif %}
 			</td>
 		</tr>
 	</table>

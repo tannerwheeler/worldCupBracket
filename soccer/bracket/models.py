@@ -62,6 +62,7 @@ class Group(models.Model):
 	name = models.CharField(max_length=20)
 	winner1 = models.CharField(max_length=20, blank=True)
 	winner2 = models.CharField(max_length=20, blank=True)
+	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, default=11)
 	
 	def __str__(self):
 		return self.name

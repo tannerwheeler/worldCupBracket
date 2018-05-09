@@ -4,6 +4,7 @@ header {
 	align-items: center;
 }
 
+
 main {
 	display: flex;
 	flex-direction: column;
@@ -14,7 +15,7 @@ main {
 .login {
 	display: flex;
 	flex-direction: column;
-	align-items:center;
+	align-items: center;
 	margin: 20px;
 	border: solid;
 	padding: 10px;
@@ -22,6 +23,11 @@ main {
 
 .error {
 	color: red;
+}
+
+.good {
+	color: green;
+	font-weight: bold;
 }
 
 
@@ -72,4 +78,26 @@ td {
 
 table {
 	border: solid;
+}
+
+.groups {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+
+}
+
+.add_team {
+	display: flex;
+	flex-direction: column;
+	padding: 50px;
+	align-items: center;
+	border: solid;
+}
+
+.group {
+	text-decoration: underline;
+	font-weight: bold;
+	font-size: 20px;
 }

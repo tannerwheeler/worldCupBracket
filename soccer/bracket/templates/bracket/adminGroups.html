@@ -1,0 +1,56 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Build Groups/Teams</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
+</head>
+<body>
+	<header>
+		<a href="{% url 'bracket:index' %}"><h1>World Cup 2018 Bracket Tournament</h1></a>
+	</header>
+
+	<main>
+		<h2>Create Groups and Teams</h2>
+		
+		<form action="{% url 'bracket:addG' admin.id %}" method="POST">
+		{% csrf_token %}
+			<div class="add_team">
+				<h3>CREATE A GROUP</h3>
+				<p class="error">{{ group_error }}</p>
+				<p class="good">{{ group_created }}</p>
+				<label for="groupCreate">Group Name:</label>
+				<input type="text" id="groupCreate" name="GroupName"><br>
+		
+				<input type="submit">
+			</div>
+		</form>
+		
+		<p></p>
+		<p class="good">{{ team_created }}</p>
+		
+		<h3>ADD A TEAM TO A GROUP</h3>
+		<p class="error">{{ team_error }}</p>
+		<p>Number of teams in group (*)</p>
+		
+		<div class="groups">
+			{% for group in groups %}
+				<form action="{% url 'bracket:addT' admin.id %}" method="POST">
+				{% csrf_token %}
+					<div class="add_team">
+						<p class="group">{{ group.name }} ({{ group.team_set.count }})</p>
+						<label for="name{{ group }}">Name:</label>
+						<input type="text" id="name{{ group }}" name="Name"><br>
+						<label for="rank{{ group }}">Ranking:</label>
+						<input type="text" id="rank{{ group }}" name="Rank"><br>
+		
+						<label for="submit{{ group }}">Submit:</label>
+						<input type="submit" value="{{ group.name }}" name="group">
+					</div>
+				</form>
+			{% endfor %}
+		</div>
+	</main>
+</body>
+</html>
