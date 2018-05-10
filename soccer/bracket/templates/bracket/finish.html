@@ -9,51 +9,47 @@
 <head>
 <body>
 	<header>
-		<h1>Choose Winner of Each Group</h1>
+		{% if not user.win1 %}
+			<h1>Choose Winner of {{ user.groupA1 }} vs {{ user.groupB2 }}</h1>
+		{% elif not user.win2 %}
+			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
+		{% elif not user.win3 %}
+			<h1>Choose a winner of {{ user.groupE1 }} vs {{ user.groupF2 }}</h1>
+		{% elif not user.win4 %}
+			<h1>Choose a winner of {{ user.groupG1 }} vs {{ user.groupH2 }}</h1>
+		{% elif not user.win5 %}
+			<h1>Choose a winner of {{ user.groupB1 }} vs {{ user.groupA2 }}</h1>
+		{% elif not user.win6 %}
+			<h1>Choose a winner of {{ user.groupD1 }} vs {{ user.groupC2 }}</h1>
+		{% elif not user.win7 %}
+			<h1>Choose a winner of {{ user.groupF1 }} vs {{ user.groupE2 }}</h1>
+		{% elif not user.win8 %}
+			<h1>Choose a winner of {{ user.groupH1 }} vs {{ user.groupG2 }}</h1>
+		{% elif not user.win9 %}
+			<h1>Choose a winner of {{ user.win1 }} vs {{ user.win2 }}</h1>
+		{% elif not user.win10 %}
+			<h1>Choose a winner of {{ user.win3 }} vs {{ user.win4 }}</h1>
+		{% elif not user.win11 %}
+			<h1>Choose a winner of {{ user.win5 }} vs {{ user.win6 }}</h1>
+		{% elif not user.win12 %}
+			<h1>Choose a winner of {{ user.win7 }} vs {{ user.win8 }}</h1>
+		{% elif not user.win13 %}
+			<h1>Choose a winner of {{ user.win9 }} vs {{ user.win10 }}</h1>
+		{% elif not user.win14 %}
+			<h1>Choose a winner of {{ user.win11 }} vs {{ user.win12 }}</h1>
+		{% elif not user.third %}
+			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
+		{% elif not user.champion %}
+			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
+		{% else %}
+			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
+		{% endif %}
 	</header>
 	
 	<div class="groups">
-		{% for thisGroup in group %}
-			<form action="{% url 'bracket:submit' user.id %}" method="POST">
-			{% csrf_token %}
-				<div class="add_team">
-					<h3>Choose First Place for {{ thisGroup.name }}</h3>
-					<div class="team_box">
-						{% for team in thisGroup.team_set.all %}
-							<div class="team_choice">
-								<input id="{{ team.name }}" type="radio" name="1" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
-							</div>
-						{% endfor %}
-					</div>
 		
-					<h3>Choose Second Place for {{ thisGroup.name }}</h3>
-		
-					<div class="team_box">
-						{% for team in thisGroup.team_set.all %}
-							<div class="team_choice">
-								<input id="{{ team.name }}" type="radio" name="2" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
-							</div>
-						{% endfor %}
-					</div>
-					
-					<input type="submit" name="group" value="{{ thisGroup.name }}">
-				</div>
-			</form>
-		{% endfor %}
 	</div>
-	<br><br>
 	
-	<footer>
-		<button id="important_button" disabled>Finish Group Choices</button>
-		
-		<script>
-			if('{{ user.groupA1 }}' != "" && '{{ user.groupA2 }}' != "" && '{{ user.groupB1 }}' != "" && '{{ user.groupB2 }}' != "" && '{{ user.groupC1 }}' != "" && '{{ user.groupC2 }}' != "" && '{{ user.groupD1 }}' != "" && '{{ user.groupD2 }}' != "" && '{{ user.groupE1 }}' != "" && '{{ user.groupE2 }}' != "" && '{{ user.groupF1 }}' != "" && '{{ user.groupF2 }}' != "" && '{{ user.groupG1 }}' != "" && '{{ user.groupG2 }}' != "" && '{{ user.groupH1 }}' != "" && '{{ user.groupH2 }}' != ""){
-				var importantButton = document.getElementById("important_button");
-				importantButton.textContent = "Finish Bracket";
-				importantButton.disabled = false;
-			}
-		</script>
-	</footer>
 	
 	<br><br>
 	<footer>
