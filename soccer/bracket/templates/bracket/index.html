@@ -6,53 +6,57 @@
 	<title>Choose Team Test</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
 	
-	<!--<script>
-		var printTeam = function(){
-			var output = document.getElementById('team');
-			
-			var radio = document.getElementById('Russia');
-			
-			if(radio.checked){
-				output.textContent = "Team: " + radio.value;
-			}
-			
-			radio = document.getElementById('Egypt');
-			if(radio.checked){
-				output.textContent = "Team: " + radio.value;
-			}
-			
-			radio = document.getElementById('Saudi Arabia');
-			if(radio.checked){
-				output.textContent = "Team: " + radio.value;
-			}
-			
-			radio = document.getElementById('Uruguay');
-			if(radio.checked){
-				output.textContent = "Team: " + radio.value;
-			}
-		}
-	</script>-->
 <head>
 <body>
-	<h1>Choose Winner of {{ group }}</h1>
+	<header>
+		<h1>Choose Winner of Each Group</h1>
+	</header>
 	
-	<form action="{% url 'bracket:submit' user.id group.id %}" method="POST">
-	{% csrf_token %}
-		{% for team in group.team_set.all %}
-			<input id="{{ team.name }}" type="radio" name="{{ group.name }}1" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label><br><br>
-		{% endfor %}
+	<div class="groups">
+		{% for thisGroup in group %}
+			<form action="{% url 'bracket:submit' user.id %}" method="POST">
+			{% csrf_token %}
+				<div class="add_team">
+					<h3>Choose First Place for {{ thisGroup.name }}</h3>
+					<div class="team_box">
+						{% for team in thisGroup.team_set.all %}
+							<div class="team_choice">
+								<input id="{{ team.name }}" type="radio" name="1" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
+							</div>
+						{% endfor %}
+					</div>
 		
-		<h3>Choose the Second Place of {{ group }}</h3>
+					<h3>Choose Second Place for {{ thisGroup.name }}</h3>
 		
-		{% for team in group.team_set.all %}
-			<input id="{{ team.name }}" type="radio" name="{{ group.name }}2" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label><br><br>
+					<div class="team_box">
+						{% for team in thisGroup.team_set.all %}
+							<div class="team_choice">
+								<input id="{{ team.name }}" type="radio" name="2" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
+							</div>
+						{% endfor %}
+					</div>
+					
+					<input type="submit" name="group" value="{{ thisGroup.name }}">
+				</div>
+			</form>
 		{% endfor %}
-
+	</div>
+	<br><br>
 	
-		<button type=submit">Submit</button>
-	</form>
+	<footer>
+		<button id="important_button" disabled>Finish Group Choices</button>
+		
+		<script>
+			if('{{ user.groupA1 }}' != "" && '{{ user.groupA2 }}' != "" && '{{ user.groupB1 }}' != "" && '{{ user.groupB2 }}' != "" && '{{ user.groupC1 }}' != "" && '{{ user.groupC2 }}' != "" && '{{ user.groupD1 }}' != "" && '{{ user.groupD2 }}' != "" && '{{ user.groupE1 }}' != "" && '{{ user.groupE2 }}' != "" && '{{ user.groupF1 }}' != "" && '{{ user.groupF2 }}' != "" && '{{ user.groupG1 }}' != "" && '{{ user.groupG2 }}' != "" && '{{ user.groupH1 }}' != "" && '{{ user.groupH2 }}' != ""){
+				var importantButton = document.getElementById("important_button");
+				importantButton.textContent = "Finish Bracket";
+				importantButton.disabled = false;
+			}
+		</script>
+	</footer>
 	
 	<br><br>
+	<footer>
 		<table>
 		<tr>
 			<td>
@@ -477,6 +481,7 @@
 			{% endif %}
 			</td>
 		</tr>
-	</table>
+		</table>
+	</footer>
 <body>
 <html>

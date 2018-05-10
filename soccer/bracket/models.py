@@ -65,7 +65,7 @@ class Group(models.Model):
 	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, default=11)
 	
 	def __str__(self):
-		return self.name
+		return self.name + ": " + self.group.name
 	
 	
 class Team(models.Model):
