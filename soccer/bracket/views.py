@@ -75,6 +75,17 @@ def groupCreate(request):
 		return	HttpResponseRedirect(reverse('bracket:index',))
 	
 	
+def bracket(request, user_id):
+	try:
+		person = User.objects.get(id=user_id)
+	except:
+		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	context = {'user': person,}
+
+	return render(request, 'bracket/finish.html', context)	
+
+	
 def choice(request, user_id):
 	try:
 		person = User.objects.get(id=user_id)
@@ -133,6 +144,91 @@ def submit(request, user_id):
 	
 	return HttpResponseRedirect(reverse('bracket:choice', args=(person.id,)))
 	
+
+	
+def win(request, user_id):
+	person = get_object_or_404(User, pk=user_id)
+	
+	button = request.POST.get('button')
+	team = request.POST.get('team')
+	
+	if team != "":
+		if button == "Game 1":
+			person.win1 = team
+		elif button == "Game 2":
+			person.win2 = team
+		elif button == "Game 3":
+			person.win3 = team
+		elif button == "Game 4":
+			person.win4 = team
+		elif button == "Game 5":
+			person.win5 = team
+		elif button == "Game 6":
+			person.win6 = team
+		elif button == "Game 7":
+			person.win7 = team
+		elif button == "Game 8":
+			person.win8 = team
+		elif button == "Game 9":
+			person.win9 = team
+		elif button == "Game 10":
+			person.win10 = team
+		elif button == "Game 11":
+			person.win11 = team
+		elif button == "Game 12":
+			person.win12 = team
+		elif button == "Game 13":
+			person.win13 = team
+		elif button == "Game 14":
+			person.win14 = team
+		
+		
+	person.save()
+		
+	
+	return render(request, 'bracket/finish.html', {'user': person, 'team_winner': "" + str(team) + " was added to bracket"})
+	
+	
+	
+def dele(request, user_id):
+	person = get_object_or_404(User, pk=user_id)
+	
+	button = request.POST.get('button')
+	
+	if button == "Go Back to Game 1":
+		person.win1 = ""
+	elif button == "Go Back to Game 2":
+		person.win2 = ""
+	elif button == "Go Back to Game 3":
+		person.win3 = ""
+	elif button == "Go Back to Game 4":
+		person.win4 = ""
+	elif button == "Go Back to Game 5":
+		person.win5 = ""
+	elif button == "Go Back to Game 6":
+		person.win6 = ""
+	elif button == "Go Back to Game 7":
+		person.win7 = ""
+	elif button == "Go Back to Game 8":
+		person.win8 = ""
+	elif button == "Go Back to Game 9":
+		person.win9 = ""
+	elif button == "Go Back to Game 10":
+		person.win10 = ""
+	elif button == "Go Back to Game 11":
+		person.win11 = ""
+	elif button == "Go Back to Game 12":
+		person.win12 = ""
+	elif button == "Go Back to Game 13":
+		person.win13 = ""
+	elif button == "Go Back to Game 14":
+		person.win14 = ""
+	
+	
+	person.save()
+		
+	
+	return render(request, 'bracket/finish.html', {'user': person, 'team_change': "Team removed"})
 	
 	
 def adminGroups(request, userGroup_id):

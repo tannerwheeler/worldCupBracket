@@ -9,7 +9,7 @@
 <head>
 <body>
 	<header>
-		{% if not user.win1 %}
+		{% if user.win1 == "" %}
 			<h1>Choose Winner of {{ user.groupA1 }} vs {{ user.groupB2 }}</h1>
 		{% elif not user.win2 %}
 			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
@@ -38,25 +38,341 @@
 		{% elif not user.win14 %}
 			<h1>Choose a winner of {{ user.win11 }} vs {{ user.win12 }}</h1>
 		{% elif not user.third %}
-			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
+			<h1>Choose a winner of team 1 vs team 2</h1>
 		{% elif not user.champion %}
-			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
+			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
 		{% else %}
-			<h1>Choose a winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</h1>
+			<h1>Save your Bracket</h1>
 		{% endif %}
 	</header>
 	
 	<div class="groups">
+		{% if not user.win1 %}
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupA1 }}" type="radio" name="team" value="{{ user.groupA1 }}"><label for="{{ user.groupA1 }}">{{ user.groupA1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupB2 }}" type="radio" name="team" value="{{ user.groupB2 }}"><label for="{{ user.groupB2 }}">{{ user.groupB2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 1">
+				</form>
+			</div>
+			
+		{% elif not user.win2 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 1">
+				</form>
+			
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupC1 }}" type="radio" name="team" value="{{ user.groupC1 }}"><label for="{{ user.groupC1 }}">{{ user.groupC1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupD2 }}" type="radio" name="team" value="{{ user.groupD2 }}"><label for="{{ user.groupD2 }}">{{ user.groupD2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 2">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win3 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 2">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupE1 }}" type="radio" name="team" value="{{ user.groupE1 }}"><label for="{{ user.groupE1 }}">{{ user.groupE1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupF2 }}" type="radio" name="team" value="{{ user.groupF2 }}"><label for="{{ user.groupF2 }}">{{ user.groupF2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 3">
+				</form>
+			</div>
+			
+			</main>
+		{% elif not user.win4 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 3">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupG1 }}" type="radio" name="team" value="{{ user.groupG1 }}"><label for="{{ user.groupG1 }}">{{ user.groupG1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupH2 }}" type="radio" name="team" value="{{ user.groupH2 }}"><label for="{{ user.groupH2 }}">{{ user.groupH2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 4">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win5 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 4">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupB1 }}" type="radio" name="team" value="{{ user.groupB1 }}"><label for="{{ user.groupB1 }}">{{ user.groupB1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupA2 }}" type="radio" name="team" value="{{ user.groupA2 }}"><label for="{{ user.groupA2 }}">{{ user.groupA2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 5">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win6 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 5">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupD1 }}" type="radio" name="team" value="{{ user.groupD1 }}"><label for="{{ user.groupD1 }}">{{ user.groupD1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupC2 }}" type="radio" name="team" value="{{ user.groupC2 }}"><label for="{{ user.groupC2 }}">{{ user.groupC2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 6">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win7 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 6">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupF1 }}" type="radio" name="team" value="{{ user.groupF1 }}"><label for="{{ user.groupF1 }}">{{ user.groupF1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupE2 }}" type="radio" name="team" value="{{ user.groupE2 }}"><label for="{{ user.groupE2 }}">{{ user.groupE2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 7">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win8 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 7">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.groupH1 }}" type="radio" name="team" value="{{ user.groupH1 }}"><label for="{{ user.groupH1 }}">{{ user.groupH1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.groupG2 }}" type="radio" name="team" value="{{ user.groupG2 }}"><label for="{{ user.groupG2 }}">{{ user.groupG2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 8">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win9 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 8">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win1 }}" type="radio" name="team" value="{{ user.win1 }}"><label for="{{ user.win1 }}">{{ user.win1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win2 }}" type="radio" name="team" value="{{ user.win2 }}"><label for="{{ user.win2 }}">{{ user.win2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 9">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win10 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 9">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win3 }}" type="radio" name="team" value="{{ user.win3 }}"><label for="{{ user.win3 }}">{{ user.win3 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win4 }}" type="radio" name="team" value="{{ user.win4 }}"><label for="{{ user.win4 }}">{{ user.win4 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 10">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win11 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 10">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win5 }}" type="radio" name="team" value="{{ user.win5 }}"><label for="{{ user.win5 }}">{{ user.win5 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win6 }}" type="radio" name="team" value="{{ user.win6 }}"><label for="{{ user.win6 }}">{{ user.win6 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 11">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win12 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 11">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win7 }}" type="radio" name="team" value="{{ user.win7 }}"><label for="{{ user.win7 }}">{{ user.win7 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win8 }}" type="radio" name="team" value="{{ user.win8 }}"><label for="{{ user.win8 }}">{{ user.win8 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 12">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win13 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 12">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win9 }}" type="radio" name="team" value="{{ user.win9 }}"><label for="{{ user.win9 }}">{{ user.win9 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win10 }}" type="radio" name="team" value="{{ user.win10 }}"><label for="{{ user.win10 }}">{{ user.win10 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 13">
+				</form>
+			</div>
+			</main>
+		{% elif not user.win14 %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 13">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win11 }}" type="radio" name="team" value="{{ user.win11 }}"><label for="{{ user.win11 }}">{{ user.win11 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win12 }}" type="radio" name="team" value="{{ user.win12 }}"><label for="{{ user.win12 }}">{{ user.win12 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Game 14">
+				</form>
+			</div>
+			</main>
+		{% elif not user.third %}
+			<h1>Choose a winner of team 1 vs team 2</h1>
+		{% elif not user.champion %}
+			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
+		{% else %}
+			<h1>Save your Bracket</h1>
+		{% endif %}
 		
 	</div>
 	
 	
 	<br><br>
 	<footer>
+		
+		<p class="good">{{ team_winner }}</p>
+		<p class="error">{{ team_change }}</p>
+		
 		<table>
 		<tr>
 			<td>
-			{%if user.groupA1 != ""%}
+			{%if user.groupA1 %}
 				<p class="team">{{ user.groupA1 }}</p>
 			{% else %}
 				<p class="team">A1</p>
@@ -86,10 +402,13 @@
 			{% endif %}
 			</td>
 		</tr>
+		<tr>
 			<td>
 			</td>
 			<td>
-			{% if user.groupA1 and user.groupB2 %}
+			{% if user.win1 %}
+				<p class="team">{{ user.win1 }}</p>
+			{% elif user.groupA1 and user.groupB2 %}
 				<p class="team">Winner of {{ user.groupA1 }} vs {{ user.groupB2 }}</p>
 			{% elif user.groupB2 %}
 				<p class="team">Winner of A1 vs {{ user.groupB2 }}</p>
@@ -112,7 +431,9 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
-			{% if user.groupB1 and user.groupA2 %}
+			{% if user.win5 %}
+				<p class="team">{{ user.win5 }}</p>
+			{% elif user.groupB1 and user.groupA2 %}
 				<p class="team">Winner of {{ user.groupB1 }} vs {{ user.groupA2 }}</p>
 			{% elif user.groupA2 %}
 				<p class="team">Winner of B1 vs {{ user.groupA2 }}</p>
@@ -124,6 +445,7 @@
 			</td>
 			<td>
 			</td>
+		</tr>
 		<tr>
 			<td>
 			{%if user.groupB2 %}
@@ -162,7 +484,9 @@
 			<td>
 			</td>
 			<td>
-			{% if user.win1 and user.win2 %}
+			{% if user.win9 %}
+				<p class="team">{{ user.win9 }}</p>
+			{% elif user.win1 and user.win2 %}
 				<p class="team">Winner of {{ user.win1 }} vs {{ user.win2 }}</p>
 			{% elif user.win1 %}
 				<p class="team">Winner of {{ user.win1 }} and ({{ user.groupA1 }} vs {{ user.groupB2 }})</p>
@@ -181,7 +505,9 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
-			{% if user.win5 and user.win6 %}
+			{% if user.win11 %}
+				<p class="team">{{ user.win11 }}</p>
+			{% elif user.win5 and user.win6 %}
 				<p class="team">Winner of {{ user.win5 }} vs {{ user.win6 }}</p>
 			{% elif user.win5 %}
 				<p class="team">Winner of {{ user.win5 }} and ({{ user.groupC1 }} vs {{ user.groupD2 }})</p>
@@ -232,7 +558,9 @@
 			<td>
 			</td>
 			<td>
-			{% if user.groupC1 and user.groupD2 %}
+			{% if user.win2 %}
+				<p class="team">{{ user.win2 }}</p>
+			{% elif user.groupC1 and user.groupD2 %}
 				<p class="team">Winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</p>
 			{% elif user.groupD2 %}
 				<p class="team">Winner of C1 vs {{ user.groupD2 }}</p>
@@ -248,7 +576,7 @@
 			<td>
 			</td>
 			<td>
-				<p class="team">World Champions</p>
+				<p class="symbol">Champions</p>
 			</td>
 			<td>
 			</td>
@@ -256,7 +584,9 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
-			{% if user.groupD1 and user.groupC2 %}
+			{% if user.win6 %}
+				<p class="team">{{ user.win6 }}</p>
+			{% elif user.groupD1 and user.groupC2 %}
 				<p class="team">Winner of {{ user.groupD1 }} vs {{ user.groupC2 }}</p>
 			{% elif user.groupB2 %}
 				<p class="team">Winner of D1 vs {{ user.groupC2 }}</p>
@@ -285,7 +615,7 @@
 			<td>
 			</td>
 			<td>
-				<p class="symbol">Champions</p>
+				<p class="team">World Champions</p>
 			</td>
 			<td>
 			</td>
@@ -313,6 +643,7 @@
 				<p class="team">Left Side Winner</p>
 			</td>
 			<td>
+				<p class="team">vs</p>
 			</td>
 			<td>
 				<p class="team">Right Side Winner</p>
@@ -360,7 +691,9 @@
 			<td>
 			</td>
 			<td>
-			{% if user.groupE1 and user.groupF2 %}
+			{% if user.win3 %}
+				<p class="team">{{ user.win3 }}</p>
+			{% elif user.groupE1 and user.groupF2 %}
 				<p class="team">Winner of {{ user.groupE1 }} vs {{ user.groupF2 }}</p>
 			{% elif user.groupF2 %}
 				<p class="team">Winner of E1 vs {{ user.groupF2 }}</p>
@@ -383,7 +716,9 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
-			{% if user.groupF1 and user.groupE2 %}
+			{% if user.win7 %}
+				<p class="team">{{ user.win7 }}</p>
+			{% elif user.groupF1 and user.groupE2 %}
 				<p class="team">Winner of {{ user.groupF1 }} vs {{ user.groupE2 }}</p>
 			{% elif user.groupE2 %}
 				<p class="team">Winner of F1 vs {{ user.groupE2 }}</p>
@@ -435,7 +770,9 @@
 			<td>
 			</td>
 			<td>
-			{% if user.win3 and user.win4 %}
+			{% if user.win10 %}
+				<p class="team">{{ user.win10 }}</p>
+			{% elif user.win3 and user.win4 %}
 				<p class="team">Winner of {{ user.win3 }} vs {{ user.win4 }}</p>
 			{% elif user.win3 %}
 				<p class="team">Winner of {{ user.win3 }} and ({{ user.groupG1 }} vs {{ user.groupH2 }})</p>
@@ -454,7 +791,9 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
-			{% if user.win7 and user.win8 %}
+			{% if user.win12 %}
+				<p class="team">{{ user.win12 }}</p>
+			{% elif user.win7 and user.win8 %}
 				<p class="team">Winner of {{ user.win7 }} vs {{ user.win8 }}</p>
 			{% elif user.win7 %}
 				<p class="team">Winner of {{ user.win7 }} and ({{ user.groupH1 }} vs {{ user.groupG2 }})</p>
@@ -505,7 +844,9 @@
 			<td>
 			</td>
 			<td>
-			{% if user.groupG1 and user.groupH2 %}
+			{% if user.win4 %}
+				<p class="team">{{ user.win4 }}</p>
+			{% elif user.groupG1 and user.groupH2 %}
 				<p class="team">Winner of {{ user.groupG1 }} vs {{ user.groupH2 }}</p>
 			{% elif user.groupH2 %}
 				<p class="team">Winner of G1 vs {{ user.groupH2 }}</p>
@@ -528,7 +869,9 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
-			{% if user.groupH1 and user.groupG2 %}
+			{% if user.win8 %}
+				<p class="team">{{ user.win8 }}</p>
+			{% elif user.groupH1 and user.groupG2 %}
 				<p class="team">Winner of {{ user.groupH1 }} vs {{ user.groupG2 }}</p>
 			{% elif user.groupG2 %}
 				<p class="team">Winner of H1 vs {{ user.groupG2 }}</p>
