@@ -178,15 +178,27 @@ def win(request, user_id):
 		elif button == "Game 12":
 			person.win12 = team
 		elif button == "Game 13":
-			person.win13 = team
+			if team == person.win9:
+				person.win13 = person.win10
+				person.loss1 = team
+			else:
+				person.win13 = team
+				person.loss1 = person.win9
 		elif button == "Game 14":
-			person.win14 = team
-		
+			if team == person.win11:
+				person.win14 = person.win12
+				person.loss2 = team
+			else:
+				person.win14 = team
+				person.loss2 = person.win11
+		elif button == "Champion":
+			person.champion = team
+		elif button == "Third Place":
+			person.third = team
 		
 	person.save()
 		
-	
-	return render(request, 'bracket/finish.html', {'user': person, 'team_winner': "" + str(team) + " was added to bracket"})
+	return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
 	
 	
 	
@@ -221,14 +233,19 @@ def dele(request, user_id):
 		person.win12 = ""
 	elif button == "Go Back to Game 13":
 		person.win13 = ""
+		person.loss1 = ""
 	elif button == "Go Back to Game 14":
 		person.win14 = ""
+		person.loss2 = ""
+	elif button == "Go Back to Champion":
+		person.champion = ""
+	elif button == "Go Back to Third":
+		person.third = ""
 	
 	
 	person.save()
 		
-	
-	return render(request, 'bracket/finish.html', {'user': person, 'team_change': "Team removed"})
+	return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
 	
 	
 def adminGroups(request, userGroup_id):

@@ -37,10 +37,10 @@
 			<h1>Choose a winner of {{ user.win9 }} vs {{ user.win10 }}</h1>
 		{% elif not user.win14 %}
 			<h1>Choose a winner of {{ user.win11 }} vs {{ user.win12 }}</h1>
-		{% elif not user.third %}
-			<h1>Choose a winner of team 1 vs team 2</h1>
 		{% elif not user.champion %}
-			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
+			<h1>Choose a Champion</h1>
+		{% elif not user.third %}
+			<h1>Choose a Third Place Winner</h1>
 		{% else %}
 			<h1>Save your Bracket</h1>
 		{% endif %}
@@ -352,12 +352,64 @@
 				</form>
 			</div>
 			</main>
-		{% elif not user.third %}
-			<h1>Choose a winner of team 1 vs team 2</h1>
 		{% elif not user.champion %}
-			<h1>Choose a winner of {{ user.win13 }} vs {{ user.win14 }}</h1>
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Game 14">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win13 }}" type="radio" name="team" value="{{ user.win13 }}"><label for="{{ user.win13 }}">{{ user.win13 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win14 }}" type="radio" name="team" value="{{ user.win14 }}"><label for="{{ user.win14 }}">{{ user.win14 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Champion">
+				</form>
+			</div>
+			</main>
+		{% elif not user.third %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Champion">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.loss1 }}" type="radio" name="team" value="{{ user.loss1 }}"><label for="{{ user.loss1 }}">{{ user.loss1 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.loss2 }}" type="radio" name="team" value="{{ user.loss2 }}"><label for="{{ user.loss2 }}">{{ user.loss2 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Third Place">
+				</form>
+			</div>
+			</main>
 		{% else %}
-			<h1>Save your Bracket</h1>
+		<main>
+			<form action="{% url 'bracket:dele' user.id %}" method="POST">
+			{% csrf_token %}			
+				<input type="submit" name="button" value="Go Back to Third">
+			</form>
+			
+			<p></p>
+			
+			<form action="" method="POST">
+			{% csrf_token %}			
+				<input type="submit" name="save" value="Save Bracket">
+			</form>
+		</main>
 		{% endif %}
 		
 	</div>
@@ -365,10 +417,6 @@
 	
 	<br><br>
 	<footer>
-		
-		<p class="good">{{ team_winner }}</p>
-		<p class="error">{{ team_change }}</p>
-		
 		<table>
 		<tr>
 			<td>
@@ -577,6 +625,12 @@
 			</td>
 			<td>
 				<p class="symbol">Champions</p>
+				
+				{% if user.champion %}
+					<p>{{ user.champion }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
 			</td>
 			<td>
 			</td>
@@ -615,7 +669,6 @@
 			<td>
 			</td>
 			<td>
-				<p class="team">World Champions</p>
 			</td>
 			<td>
 			</td>
@@ -640,13 +693,25 @@
 			<td>
 			</td>
 			<td>
+			{% if user.win13 %}
+				<p class="team">{{ user.win13 }}</p>
+			{% elif user.win9 and user.win10 %}
+				<p class="team">{{ user.win9 }} vs {{ user.win10 }}</p>
+			{% else %}
 				<p class="team">Left Side Winner</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="team">vs</p>
 			</td>
 			<td>
-				<p class="team">Right Side Winner</p>
+			{% if user.win14 %}
+				<p class="team">{{ user.win14 }}</p>
+			{% elif user.win12 and user.win11 %}
+				<p class="team">{{ user.win11 }} vs {{ user.win12 }}</p>
+			{% else %}
+				<p class="team">Left Side Winner</p>
+			{% endif %}
 			</td>
 			<td>
 			</td>
@@ -709,6 +774,13 @@
 			<td>
 			</td>
 			<td>
+				<p class="team">3rd Place</p>
+				
+				{% if user.third %}
+					<p>{{ user.third }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
 			</td>
 			<td>
 			</td>
@@ -747,7 +819,6 @@
 			<td>
 			</td>
 			<td>
-				<p class="team">3rd Place</p>
 			</td>
 			<td>
 			</td>

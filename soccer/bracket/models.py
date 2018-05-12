@@ -51,8 +51,11 @@ class User(models.Model):
 	win12 = models.CharField(max_length=30, default="", blank=True)
 	win13 = models.CharField(max_length=30, default="", blank=True)
 	win14 = models.CharField(max_length=30, default="", blank=True)
+	loss1 = models.CharField(max_length=30, default="", blank=True)
+	loss2 = models.CharField(max_length=30, default="", blank=True)
 	champion = models.CharField(max_length=30, default="", blank=True)
 	third = models.CharField(max_length=30, default="", blank=True)
+	
 	
 	def __str__(self):
 		return self.userName
