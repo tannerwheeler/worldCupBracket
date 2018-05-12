@@ -48,6 +48,11 @@
 	
 	<div class="groups">
 		{% if not user.win1 %}
+			<main>	
+				<form action="{% url 'bracket:choice' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Go Back to Groups">
+				</form>
 			
 			<div class="add_team">
 				<form action="{% url 'bracket:win' user.id %}" method="POST">
@@ -352,33 +357,11 @@
 				</form>
 			</div>
 			</main>
-		{% elif not user.champion %}
-			<main>	
-				<form action="{% url 'bracket:dele' user.id %}" method="POST">
-				{% csrf_token %}			
-					<input type="submit" name="button" value="Go Back to Game 14">
-				</form>
-			
-			<div class="add_team">
-				<form action="{% url 'bracket:win' user.id %}" method="POST">
-				{% csrf_token %}
-					<div class="team_choice">
-						<input id="{{ user.win13 }}" type="radio" name="team" value="{{ user.win13 }}"><label for="{{ user.win13 }}">{{ user.win13 }}</label>
-					</div>
-					
-					<div class="team_choice">
-						<input id="{{ user.win14 }}" type="radio" name="team" value="{{ user.win14 }}"><label for="{{ user.win14 }}">{{ user.win14 }}</label>
-					</div>
-					
-					<input type="submit" name="button" value="Champion">
-				</form>
-			</div>
-			</main>
 		{% elif not user.third %}
 			<main>	
 				<form action="{% url 'bracket:dele' user.id %}" method="POST">
 				{% csrf_token %}			
-					<input type="submit" name="button" value="Go Back to Champion">
+					<input type="submit" name="button" value="Go Back to Game 14">
 				</form>
 			
 			<div class="add_team">
@@ -396,11 +379,33 @@
 				</form>
 			</div>
 			</main>
+		{% elif not user.champion %}
+			<main>	
+				<form action="{% url 'bracket:dele' user.id %}" method="POST">
+				{% csrf_token %}			
+					<input type="submit" name="button" value="Reselect Third">
+				</form>
+			
+			<div class="add_team">
+				<form action="{% url 'bracket:win' user.id %}" method="POST">
+				{% csrf_token %}
+					<div class="team_choice">
+						<input id="{{ user.win13 }}" type="radio" name="team" value="{{ user.win13 }}"><label for="{{ user.win13 }}">{{ user.win13 }}</label>
+					</div>
+					
+					<div class="team_choice">
+						<input id="{{ user.win14 }}" type="radio" name="team" value="{{ user.win14 }}"><label for="{{ user.win14 }}">{{ user.win14 }}</label>
+					</div>
+					
+					<input type="submit" name="button" value="Champion">
+				</form>
+			</div>
+			</main>
 		{% else %}
 		<main>
 			<form action="{% url 'bracket:dele' user.id %}" method="POST">
 			{% csrf_token %}			
-				<input type="submit" name="button" value="Go Back to Third">
+				<input type="submit" name="button" value="Reselect Champion">
 			</form>
 			
 			<p></p>

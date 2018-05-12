@@ -21,7 +21,7 @@
 					<div class="team_box">
 						{% for team in thisGroup.team_set.all %}
 							<div class="team_choice">
-								<input id="{{ team.name }}" type="radio" name="1" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
+								<input id="{{ team.name }}" type="radio" name="1" value="{{ team.name }} ({{ team.ranking }})"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
 							</div>
 						{% endfor %}
 					</div>
@@ -31,7 +31,7 @@
 					<div class="team_box">
 						{% for team in thisGroup.team_set.all %}
 							<div class="team_choice">
-								<input id="{{ team.name }}" type="radio" name="2" value="{{ team.name }}"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
+								<input id="{{ team.name }}" type="radio" name="2" value="{{ team.name }} ({{ team.ranking }})"><label for="{{ team.name }}">{{ team.name }} ({{ team.ranking }})</label>
 							</div>
 						{% endfor %}
 					</div>

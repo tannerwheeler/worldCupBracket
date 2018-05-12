@@ -115,3 +115,16 @@ table {
 	flex-direction: column;
 	justify-content: flex-start;
 }
+
+.user-header {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	background-color: black;
+}
+
+.header-piece {
+	display: flex;
+	margin: 5px;
+	color: white;
+}

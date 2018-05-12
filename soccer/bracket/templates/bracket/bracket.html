@@ -7,10 +7,20 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
 <head>
 <body>
-	<h1>{{ user.firstName }} {{ user.lastName }}</h1>
-	<h2>Points: {{ user.points }}</h2>
-	<h3>Current Leader: Tanner Wheeler</h3>
-	
+	<div class="user-header">
+		<div class="header-piece">
+			<h1>{{ user.firstName }} {{ user.lastName }}</h1>
+		</div>
+		<div class="header-piece">	
+			<h2>Points: {{ user.points }}</h2>
+		</div>
+		<div class="header-piece">
+			<h2>Group: {{ user.group.name }}</h2>
+		</div>
+		<div class="header-piece">
+			<h3>Current Leader: Tanner Wheeler</h3>
+		</div>
+	</div>
 	
 	<br><br>
 	<footer>

@@ -186,23 +186,23 @@ def win(request, user_id):
 		elif button == "Game 12":
 			person.win12 = team
 		elif button == "Game 13":
-			if team == person.win9:
-				person.win13 = person.win10
-				person.loss1 = team
+			if str(team) == str(person.win9):
+				person.win13 = person.win9
+				person.loss1 = person.win10
 			else:
-				person.win13 = team
+				person.win13 = person.win10
 				person.loss1 = person.win9
 		elif button == "Game 14":
-			if team == person.win11:
-				person.win14 = person.win12
-				person.loss2 = team
+			if str(team) == str(person.win11):
+				person.win14 = person.win11
+				person.loss2 = person.win12
 			else:
-				person.win14 = team
+				person.win14 = person.win12
 				person.loss2 = person.win11
-		elif button == "Champion":
-			person.champion = team
 		elif button == "Third Place":
 			person.third = team
+		elif button == "Champion":
+			person.champion = team
 		
 	person.save()
 		
@@ -245,10 +245,10 @@ def dele(request, user_id):
 	elif button == "Go Back to Game 14":
 		person.win14 = ""
 		person.loss2 = ""
-	elif button == "Go Back to Champion":
-		person.champion = ""
-	elif button == "Go Back to Third":
+	elif button == "Reselect Third":
 		person.third = ""
+	elif button == "Reselect Champion":
+		person.champion = ""
 	
 	
 	person.save()
