@@ -405,7 +405,7 @@
 			
 			<p></p>
 			
-			<form action="" method="POST">
+			<form action="{% url 'bracket:userView' user.id %}" method="POST">
 			{% csrf_token %}			
 				<input type="submit" name="save" value="Save Bracket">
 			</form>

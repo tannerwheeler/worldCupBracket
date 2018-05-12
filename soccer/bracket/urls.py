@@ -9,6 +9,7 @@ urlpatterns = [
 	path('user/create/', views.userCreate, name='userCreate'),
 	path('group/', views.createGroup, name='createGroup'),
 	path('group/create/', views.groupCreate, name='groupCreate'),
+	path('<int:user_id>/', views.userView, name='userView'),
 	path('<int:user_id>/choice/', views.choice, name='choice'),
 	path('<int:user_id>/choice/submit/', views.submit, name='submit'),
 	path('<int:user_id>/bracket/', views.bracket, name='bracket'),

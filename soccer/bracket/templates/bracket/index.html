@@ -44,13 +44,21 @@
 	<br><br>
 	
 	<footer>
-		<button id="important_button" disabled>Finish Group Choices</button>
+		<div id="link_button"><button id="important_button" disabled>Finish Group Choices</button></div>
 		
 		<script>
 			if('{{ user.groupA1 }}' != "" && '{{ user.groupA2 }}' != "" && '{{ user.groupB1 }}' != "" && '{{ user.groupB2 }}' != "" && '{{ user.groupC1 }}' != "" && '{{ user.groupC2 }}' != "" && '{{ user.groupD1 }}' != "" && '{{ user.groupD2 }}' != "" && '{{ user.groupE1 }}' != "" && '{{ user.groupE2 }}' != "" && '{{ user.groupF1 }}' != "" && '{{ user.groupF2 }}' != "" && '{{ user.groupG1 }}' != "" && '{{ user.groupG2 }}' != "" && '{{ user.groupH1 }}' != "" && '{{ user.groupH2 }}' != ""){
 				var importantButton = document.getElementById("important_button");
 				importantButton.textContent = "Finish Bracket";
 				importantButton.disabled = false;
+				
+				var section = document.getElementById('link_button');
+				var link = document.createElement('a');
+				
+				link.setAttribute("href", "{% url 'bracket:bracket' user.id %}");
+				
+				link.appendChild(importantButton);
+				section.appendChild(link);
 			}
 		</script>
 	</footer>

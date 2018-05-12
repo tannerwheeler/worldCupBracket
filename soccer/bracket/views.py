@@ -9,6 +9,14 @@ def index(request):
 	return render(request, 'bracket/main.html',)
 	
 	
+def userView(request, user_id):
+	person = get_object_or_404(User, pk=user_id)
+	
+	context = { 'user': person, }
+	
+	return render(request, 'bracket/bracket.html', context)
+	
+	
 def createUser(request):
 	return render(request, 'bracket/createUser.html',)
 	

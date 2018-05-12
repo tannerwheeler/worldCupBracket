@@ -3,18 +3,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="bracket:style.css">
+	<title>{{ user.firstName }}'s View</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
 <head>
 <body>
-	<h1>Spencer Wheeler</h1>
-	<h2>Points: 16</h2>
+	<h1>{{ user.firstName }} {{ user.lastName }}</h1>
+	<h2>Points: {{ user.points }}</h2>
 	<h3>Current Leader: Tanner Wheeler</h3>
 	
 	
-	<table>
+	<br><br>
+	<footer>
+		<table>
 		<tr>
 			<td>
+			{%if user.groupA1 %}
+				<p class="team">{{ user.groupA1 }}</p>
+			{% else %}
 				<p class="team">A1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -33,13 +40,28 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupB1 %}
+				<p class="team">{{ user.groupB1 }}</p>
+			{% else %}
 				<p class="team">B1</p>
+			{% endif %}
 			</td>
 		</tr>
+		<tr>
 			<td>
 			</td>
 			<td>
-				<p class="team">Saudi Arabia</p>
+			{% if user.win1 %}
+				<p class="team">{{ user.win1 }}</p>
+			{% elif user.groupA1 and user.groupB2 %}
+				<p class="team">Winner of {{ user.groupA1 }} vs {{ user.groupB2 }}</p>
+			{% elif user.groupB2 %}
+				<p class="team">Winner of A1 vs {{ user.groupB2 }}</p>
+			{% elif user.groupA1 %}
+				<p class="team">Winner of {{ user.groupA1 }} vs B2</p>
+			{% else %}
+				<p class="team">Winner of A1 vs B2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -54,87 +76,28 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
-				<p class="team">Switzerland</p>
+			{% if user.win5 %}
+				<p class="team">{{ user.win5 }}</p>
+			{% elif user.groupB1 and user.groupA2 %}
+				<p class="team">Winner of {{ user.groupB1 }} vs {{ user.groupA2 }}</p>
+			{% elif user.groupA2 %}
+				<p class="team">Winner of B1 vs {{ user.groupA2 }}</p>
+			{% elif user.groupB1 %}
+				<p class="team">Winner of {{ user.groupB1 }} vs A2</p>
+			{% else %}
+				<p class="team">Winner of B1 vs A2</p>
+			{% endif %}
 			</td>
 			<td>
 			</td>
+		</tr>
 		<tr>
 			<td>
-				<p class="team">A2</p>
-			</td>
-			<td>
-				<p class="symbol">---┘</p>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-				<p class="symbol">└---</p>
-			</td>
-			<td>
+			{%if user.groupB2 %}
+				<p class="team">{{ user.groupB2 }}</p>
+			{% else %}
 				<p class="team">B2</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-				<p class="team">Winner of Stage 2</p>
-			</td>
-			<td>
-				<p class="symbol">---┐</p>
-			</td>
-			<td>
-			</td>
-			<td>
-				<p class="symbol">┌---</p>
-			</td>
-			<td>
-				<p class="team">Winner of Stage 2</p>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p class="team">C1</p>
-			</td>
-			<td>
-				<p class="symbol">---┐</p>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-				<p class="symbol">┌---</p>
-			</td>
-			<td>
-				<p class="team">D1</p>
-			</td>
-		</tr>
-		<tr>
-			<td>
-			</td>
-			<td>
-				<p class="team">Winner of C1 vs D2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -142,7 +105,10 @@
 			<td>
 			</td>
 			<td>
-				<p class="team">World Champions</p>
+			</td>
+			<td>
+			</td>
+			<td>
 			</td>
 			<td>
 			</td>
@@ -150,24 +116,156 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
-				<p class="team">Winner of D1 vs C2</p>
+			{%if user.groupA2 %}
+				<p class="team">{{ user.groupA2 }}</p>
+			{% else %}
+				<p class="team">A2</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			{% if user.win9 %}
+				<p class="team">{{ user.win9 }}</p>
+			{% elif user.win1 and user.win2 %}
+				<p class="team">Winner of {{ user.win1 }} vs {{ user.win2 }}</p>
+			{% elif user.win1 %}
+				<p class="team">Winner of {{ user.win1 }} and ({{ user.groupA1 }} vs {{ user.groupB2 }})</p>
+			{% elif user.win2 %}
+				<p class="team">Winner of ({{ user.groupA1 }} and {{ user.groupB2 }}) vs {{ user.win2 }}</p>
+			{% else %}
+				<p class="team">Winner of ({{ user.groupA1 }} vs {{ user.groupB2 }}) and ({{ user.groupC1 }} vs {{ user.groupD2 }})</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{% if user.win11 %}
+				<p class="team">{{ user.win11 }}</p>
+			{% elif user.win5 and user.win6 %}
+				<p class="team">Winner of {{ user.win5 }} vs {{ user.win6 }}</p>
+			{% elif user.win5 %}
+				<p class="team">Winner of {{ user.win5 }} and ({{ user.groupC1 }} vs {{ user.groupD2 }})</p>
+			{% elif user.win6 %}
+				<p class="team">Winner of ({{ user.groupB1 }} and {{ user.groupA2 }}) vs {{ user.win6 }}</p>
+			{% else %}
+				<p class="team">Winner of ({{ user.groupB1 }} vs {{ user.groupA2 }}) and ({{ user.groupD1 }} vs {{ user.groupC2 }})</p>
+			{% endif %}
+			</td>
+			<td>
 			</td>
 			<td>
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<p class="team">D2</p>
+			{%if user.groupC1 %}
+				<p class="team">{{ user.groupC1 }}</p>
+			{% else %}
+				<p class="team">C1</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{%if user.groupD1 %}
+				<p class="team">{{ user.groupD1 }}</p>
+			{% else %}
+				<p class="team">D1</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			{% if user.win2 %}
+				<p class="team">{{ user.win2 }}</p>
+			{% elif user.groupC1 and user.groupD2 %}
+				<p class="team">Winner of {{ user.groupC1 }} vs {{ user.groupD2 }}</p>
+			{% elif user.groupD2 %}
+				<p class="team">Winner of C1 vs {{ user.groupD2 }}</p>
+			{% elif user.groupC1 %}
+				<p class="team">Winner of {{ user.groupC1 }} vs D2</p>
+			{% else %}
+				<p class="team">Winner of C1 vs D2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
-			</td>
-			<td>
 			</td>
 			<td>
 			</td>
 			<td>
 				<p class="symbol">Champions</p>
+				
+				{% if user.champion %}
+					<p>{{ user.champion }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{% if user.win6 %}
+				<p class="team">{{ user.win6 }}</p>
+			{% elif user.groupD1 and user.groupC2 %}
+				<p class="team">Winner of {{ user.groupD1 }} vs {{ user.groupC2 }}</p>
+			{% elif user.groupB2 %}
+				<p class="team">Winner of D1 vs {{ user.groupC2 }}</p>
+			{% elif user.groupD1 %}
+				<p class="team">Winner of {{ user.groupD1 }} vs C2</p>
+			{% else %}
+				<p class="team">Winner of D1 vs C2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if user.groupD2 %}
+				<p class="team">{{ user.groupD2 }}</p>
+			{% else %}
+				<p class="team">D2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
 			</td>
 			<td>
 			</td>
@@ -177,7 +275,11 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupC2 %}
+				<p class="team">{{ user.groupC2 }}</p>
+			{% else %}
 				<p class="team">C2</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -188,12 +290,25 @@
 			<td>
 			</td>
 			<td>
+			{% if user.win13 %}
+				<p class="team">{{ user.win13 }}</p>
+			{% elif user.win9 and user.win10 %}
+				<p class="team">{{ user.win9 }} vs {{ user.win10 }}</p>
+			{% else %}
 				<p class="team">Left Side Winner</p>
+			{% endif %}
 			</td>
 			<td>
+				<p class="team">vs</p>
 			</td>
 			<td>
-				<p class="team">Right Side Winner</p>
+			{% if user.win14 %}
+				<p class="team">{{ user.win14 }}</p>
+			{% elif user.win12 and user.win11 %}
+				<p class="team">{{ user.win11 }} vs {{ user.win12 }}</p>
+			{% else %}
+				<p class="team">Left Side Winner</p>
+			{% endif %}
 			</td>
 			<td>
 			</td>
@@ -204,7 +319,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupE1 %}
+				<p class="team">{{ user.groupE1 }}</p>
+			{% else %}
 				<p class="team">E1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -223,46 +342,80 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupF1 %}
+				<p class="team">{{ user.groupF1 }}</p>
+			{% else %}
 				<p class="team">F1</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
 			<td>
 			</td>
 			<td>
+			{% if user.win3 %}
+				<p class="team">{{ user.win3 }}</p>
+			{% elif user.groupE1 and user.groupF2 %}
+				<p class="team">Winner of {{ user.groupE1 }} vs {{ user.groupF2 }}</p>
+			{% elif user.groupF2 %}
+				<p class="team">Winner of E1 vs {{ user.groupF2 }}</p>
+			{% elif user.groupE1 %}
+				<p class="team">Winner of {{ user.groupE1 }} vs F2</p>
+			{% else %}
 				<p class="team">Winner of E1 vs F2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-			</td>
-			<td>
-				<p class="symbol">┌---</p>
-			</td>
-			<td>
-				<p class="team">Winner of F1 vs E2</p>
-			</td>
-			<td>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<p class="team">F2</p>
-			</td>
-			<td>
-				<p class="symbol">---┘</p>
-			</td>
-			<td>
 			</td>
 			<td>
 			</td>
 			<td>
 				<p class="team">3rd Place</p>
+				
+				{% if user.third %}
+					<p>{{ user.third }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{% if user.win7 %}
+				<p class="team">{{ user.win7 }}</p>
+			{% elif user.groupF1 and user.groupE2 %}
+				<p class="team">Winner of {{ user.groupF1 }} vs {{ user.groupE2 }}</p>
+			{% elif user.groupE2 %}
+				<p class="team">Winner of F1 vs {{ user.groupE2 }}</p>
+			{% elif user.groupF1 %}
+				<p class="team">Winner of {{ user.groupF1 }} vs E2</p>
+			{% else %}
+				<p class="team">Winner of F1 vs E2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if user.groupF2 %}
+				<p class="team">{{ user.groupF2 }}</p>
+			{% else %}
+				<p class="team">F2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
 			</td>
 			<td>
 			</td>
@@ -272,7 +425,11 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupE2 %}
+				<p class="team">{{ user.groupE2 }}</p>
+			{% else %}
 				<p class="team">E2</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
@@ -281,7 +438,17 @@
 			<td>
 			</td>
 			<td>
-				<p class="team">Winner of Stage 2</p>
+			{% if user.win10 %}
+				<p class="team">{{ user.win10 }}</p>
+			{% elif user.win3 and user.win4 %}
+				<p class="team">Winner of {{ user.win3 }} vs {{ user.win4 }}</p>
+			{% elif user.win3 %}
+				<p class="team">Winner of {{ user.win3 }} and ({{ user.groupG1 }} vs {{ user.groupH2 }})</p>
+			{% elif user.win4 %}
+				<p class="team">Winner of ({{ user.groupE1 }} and {{ user.groupF2 }}) vs {{ user.win4 }}</p>
+			{% else %}
+				<p class="team">Winner of ({{ user.groupE1 }} vs {{ user.groupF2 }}) and ({{ user.groupG1 }} vs {{ user.groupH2 }})</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -292,7 +459,17 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
-				<p class="team">Winner of Stage 2</p>
+			{% if user.win12 %}
+				<p class="team">{{ user.win12 }}</p>
+			{% elif user.win7 and user.win8 %}
+				<p class="team">Winner of {{ user.win7 }} vs {{ user.win8 }}</p>
+			{% elif user.win7 %}
+				<p class="team">Winner of {{ user.win7 }} and ({{ user.groupH1 }} vs {{ user.groupG2 }})</p>
+			{% elif user.win8 %}
+				<p class="team">Winner of ({{ user.groupH1 }} and {{ user.groupG2 }}) vs {{ user.win8 }}</p>
+			{% else %}
+				<p class="team">Winner of ({{ user.groupF1 }} vs {{ user.groupE2 }}) and ({{ user.groupH1 }} vs {{ user.groupG2 }})</p>
+			{% endif %}
 			</td>
 			<td>
 			</td>
@@ -301,7 +478,11 @@
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupG1 %}
+				<p class="team">{{ user.groupG1 }}</p>
+			{% else %}
 				<p class="team">G1</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┐</p>
@@ -320,14 +501,28 @@
 				<p class="symbol">┌---</p>
 			</td>
 			<td>
+			{%if user.groupH1 %}
+				<p class="team">{{ user.groupH1 }}</p>
+			{% else %}
 				<p class="team">H1</p>
+			{% endif %}
 			</td>
 		</tr>
 		<tr>
 			<td>
 			</td>
 			<td>
+			{% if user.win4 %}
+				<p class="team">{{ user.win4 }}</p>
+			{% elif user.groupG1 and user.groupH2 %}
+				<p class="team">Winner of {{ user.groupG1 }} vs {{ user.groupH2 }}</p>
+			{% elif user.groupH2 %}
+				<p class="team">Winner of G1 vs {{ user.groupH2 }}</p>
+			{% elif user.groupG1 %}
+				<p class="team">Winner of {{ user.groupG1 }} vs H2</p>
+			{% else %}
 				<p class="team">Winner of G1 vs H2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -342,14 +537,28 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{% if user.win8 %}
+				<p class="team">{{ user.win8 }}</p>
+			{% elif user.groupH1 and user.groupG2 %}
+				<p class="team">Winner of {{ user.groupH1 }} vs {{ user.groupG2 }}</p>
+			{% elif user.groupG2 %}
+				<p class="team">Winner of H1 vs {{ user.groupG2 }}</p>
+			{% elif user.groupH1 %}
+				<p class="team">Winner of {{ user.groupH1 }} vs G2</p>
+			{% else %}
 				<p class="team">Winner of H1 vs G2</p>
+			{% endif %}
 			</td>
 			<td>
 			</td>
 		</tr>
 		<tr>
 			<td>
+			{%if user.groupH2 %}
+				<p class="team">{{ user.groupH2 }}</p>
+			{% else %}
 				<p class="team">H2</p>
+			{% endif %}
 			</td>
 			<td>
 				<p class="symbol">---┘</p>
@@ -368,9 +577,14 @@
 				<p class="symbol">└---</p>
 			</td>
 			<td>
+			{%if user.groupG2 %}
+				<p class="team">{{ user.groupG2 }}</p>
+			{% else %}
 				<p class="team">G2</p>
+			{% endif %}
 			</td>
 		</tr>
-	</table>
+		</table>
+	</footer>
 <body>
 <html>
