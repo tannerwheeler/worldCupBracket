@@ -37,10 +37,10 @@
 			<h1>Choose a winner of {{ user.win9 }} vs {{ user.win10 }}</h1>
 		{% elif not user.win14 %}
 			<h1>Choose a winner of {{ user.win11 }} vs {{ user.win12 }}</h1>
-		{% elif not user.champion %}
-			<h1>Choose a Champion</h1>
 		{% elif not user.third %}
 			<h1>Choose a Third Place Winner</h1>
+		{% elif not user.champion %}
+			<h1>Choose a Champion</h1>
 		{% else %}
 			<h1>Save your Bracket</h1>
 		{% endif %}

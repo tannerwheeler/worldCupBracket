@@ -90,9 +90,11 @@ def bracket(request, user_id):
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
 	context = {'user': person,}
-
-	return render(request, 'bracket/finish.html', context)	
-
+	if person.group.edit:
+		return render(request, 'bracket/finish.html', context)	
+	else:
+		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
+		
 	
 def choice(request, user_id):
 	try:
@@ -100,12 +102,17 @@ def choice(request, user_id):
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
 	
-	group = person.group.group_set.all()
+	if person.group.edit:
+		if not person.win1:
+			group = person.group.group_set.all()
 		
-	context = {'user': person, 'group': group}
+			context = {'user': person, 'group': group}
 
-	return render(request, 'bracket/index.html', context)
-	
+			return render(request, 'bracket/index.html', context)
+		else:
+			return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
+	else:
+		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 	
 def submit(request, user_id):
 	#return HttpResponse("Submit")
