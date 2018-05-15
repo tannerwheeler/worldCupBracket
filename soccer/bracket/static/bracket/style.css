@@ -96,6 +96,18 @@ table {
 	border: solid;
 }
 
+.view_team {
+	display: flex;
+	flex-direction: column;
+	padding: 15px;
+	align-items: center;
+	border: solid;
+}
+
+.view_team p {
+	margin: 5px;
+}
+
 .group {
 	text-decoration: underline;
 	font-weight: bold;
@@ -118,13 +130,53 @@ table {
 
 .user-header {
 	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
+	flex-direction: row;
 	background-color: black;
 }
 
-.header-piece {
+.user-header-piece1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	flex-grow: 1;
+}
+
+.user-header-piece2 {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	flex-basis: auto;
+}
+
+.header-piece1 {
 	display: flex;
 	margin: 5px;
 	color: white;
+	justify-content: flex-start;
+}
+
+.header-piece2 {
+	display: flex;
+	margin: 5px;
+	color: white;
+	justify-content: flex-end;
+	flex-grow: 1;
+}
+
+.user-body {
+	display: flex;
+	justify-content: center;
+	flex-direction: row;
+}
+
+.user-bodyp1 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+}
+
+.user-bodyp2 {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
 }

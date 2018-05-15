@@ -327,3 +327,118 @@ def addT(request, userGroup_id):
 		context = {'team_created': "" + str(nameT) + " was created successfully", 'admin': admin, 'groups': groups,}
 	
 	return render(request, 'bracket/adminGroupsTest.html', context,)
+	
+	
+	
+def userGroupView(request, userGroup_id):
+	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	context = { 'userGroup': userGroup, }
+	
+	return render(request, 'bracket/winner.html', context,)
+	
+	
+def userStage(request, userGroup_id):
+	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	team = request.POST.get('team')
+	position = request.POST.get('position')
+	
+	
+	if str(position) != "NOTHING" and str(team) != "NOTHING":
+		if str(position) == "A1":
+			userGroup.groupA1 = team;
+		elif str(position) == "A2":
+			userGroup.groupA2 = team;
+		elif str(position) == "B1":
+			userGroup.groupB1 = team;
+		elif str(position) == "B2":
+			userGroup.groupB2 = team;
+		elif str(position) == "C1":
+			userGroup.groupC1 = team;
+		elif str(position) == "C2":
+			userGroup.groupC2 = team;
+		elif str(position) == "D1":
+			userGroup.groupD1 = team;
+		elif str(position) == "D2":
+			userGroup.groupD2 = team;
+		elif str(position) == "E1":
+			userGroup.groupE1 = team;
+		elif str(position) == "E2":
+			userGroup.groupE2 = team;
+		elif str(position) == "F1":
+			userGroup.groupF1 = team;
+		elif str(position) == "F2":
+			userGroup.groupF2 = team;
+		elif str(position) == "G1":
+			userGroup.groupG1 = team;
+		elif str(position) == "G2":
+			userGroup.groupG2 = team;
+		elif str(position) == "H1":
+			userGroup.groupH1 = team;
+		elif str(position) == "H2":
+			userGroup.groupH2 = team;
+		else:
+			return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+			
+		userGroup.save()
+	
+	else:
+		return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+		
+	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+	
+	
+def userBracket(request, userGroup_id):
+	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	team = request.POST.get('team')
+	game = request.POST.get('game')
+	
+	
+	if str(game) != "NOTHING" and str(team) != "NOTHING":
+		if str(game) == "Game 1":
+			userGroup.win1 = team;
+		elif str(game) == "Game 2":
+			userGroup.win2 = team;
+		elif str(game) == "Game 3":
+			userGroup.win3 = team;
+		elif str(game) == "Game 4":
+			userGroup.win4 = team;
+		elif str(game) == "Game 5":
+			userGroup.win5 = team;
+		elif str(game) == "Game 6":
+			userGroup.win6 = team;
+		elif str(game) == "Game 7":
+			userGroup.win7 = team;
+		elif str(game) == "Game 8":
+			userGroup.win8 = team;
+		elif str(game) == "Game 9":
+			userGroup.win9 = team;
+		elif str(game) == "Game 10":
+			userGroup.win10 = team;
+		elif str(game) == "Game 11":
+			userGroup.win11 = team;
+		elif str(game) == "Game 12":
+			userGroup.win12 = team;
+		#Add some this here for the losers
+		elif str(game) == "Game 13":
+			userGroup.win13 = team;
+		elif str(game) == "Game 14":
+			userGroup.win14 = team;
+		elif str(game) == "Third":
+			userGroup.third = team;
+		elif str(game) == "Champion":
+			userGroup.champion = team;
+		else:
+			return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+			
+		userGroup.save()
+	
+	else:
+		return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+		
+	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
+	
+	
+	

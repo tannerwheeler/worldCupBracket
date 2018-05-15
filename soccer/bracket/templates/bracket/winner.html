@@ -1,0 +1,303 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>Set Winners for {{ userGroup.name }}</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
+	
+</head>
+<body>
+	<header>
+		<h1>Select the Winners</h1>
+	</header>
+	
+	<header>
+		<p class="team">Group Stage</p>
+		
+		<form action="{% url 'bracket:userStage' userGroup.id %}" method="POST" id="setTeam">
+		{% csrf_token %}
+			<label>Choose A Team</label>
+			<select class="teamOption" name="team" form="setTeam">
+				<option name="team" value="NOTHING"></option>
+				{% for group in userGroup.group_set.all %}
+					{% for team in group.team_set.all %}
+						<option value="{{ team.name }} ({{ team.ranking }})">{{ team.name }}</option>
+					{% endfor %}
+				{% endfor %}
+			</select>
+		
+			<label>Choose A Position</label>
+			<select class="teamOption" name="position" form="setTeam">
+				<option value="NOTHING"></option>
+				<option value="A1">A1</option>
+				<option value="A2">A2</option>
+				<option value="B1">B1</option>
+				<option value="B2">B2</option>
+				<option value="C1">C1</option>
+				<option value="C2">C2</option>
+				<option value="D1">D1</option>
+				<option value="D2">D2</option>
+				<option value="E1">E1</option>
+				<option value="E2">E2</option>
+				<option value="F1">F1</option>
+				<option value="F2">F2</option>
+				<option value="G1">G1</option>
+				<option value="G2">G2</option>
+				<option value="H1">H1</option>
+				<option value="H2">H2</option>
+			</select>
+			
+			<input id="submitTeamButton" type="submit" value="Submit Team">
+		</form>
+	</header><br>
+	
+	<div class="groups">
+		<div class="view_team">
+			<p>Group A</p>
+			<p>First: {{ userGroup.groupA1 }}</p>
+			<p>Second: {{ userGroup.groupA2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group B</p>
+			<p>First: {{ userGroup.groupB1 }}</p>
+			<p>Second: {{ userGroup.groupB2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group C</p>
+			<p>First: {{ userGroup.groupC1 }}</p>
+			<p>Second: {{ userGroup.groupC2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group D</p>
+			<p>First: {{ userGroup.groupD1 }}</p>
+			<p>Second: {{ userGroup.groupD2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group E</p>
+			<p>First: {{ userGroup.groupE1 }}</p>
+			<p>Second: {{ userGroup.groupE2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group F</p>
+			<p>First: {{ userGroup.groupF1 }}</p>
+			<p>Second: {{ userGroup.groupF2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group G</p>
+			<p>First: {{ userGroup.groupG1 }}</p>
+			<p>Second: {{ userGroup.groupG2 }}</p>
+		</div>
+		<div class="view_team">
+			<p>Group H</p>
+			<p>First: {{ userGroup.groupH1 }}</p>
+			<p>Second: {{ userGroup.groupH2 }}</p>
+		</div>
+	</div>
+	
+	
+	{%if userGroup.groupA1 and userGroup.groupA2 and userGroup.groupB1 and userGroup.groupB2 and userGroup.groupC1 and userGroup.groupC2 and userGroup.groupD1 and userGroup.groupD2 and userGroup.groupE1 and userGroup.groupE2 and userGroup.groupF1 and userGroup.groupF2 and userGroup.groupG1 and userGroup.groupG2 and userGroup.groupH1 and userGroup.groupH2 %}
+	<br><br>
+	<header>
+		<p class="team">Bracket Stage</p>
+	</header>
+	
+	<main>
+		<div class="groups">
+			<div class="view_team">
+				<h4>Game 1</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupA1 }}">{{ userGroup.groupA1 }}</option>
+						<option value="{{ userGroup.groupB2 }}">{{ userGroup.groupB2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 1">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 2</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupB1 }}">{{ userGroup.groupB1 }}</option>
+						<option value="{{ userGroup.groupA2 }}">{{ userGroup.groupA2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 2">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 3</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupC1 }}">{{ userGroup.groupC1 }}</option>
+						<option value="{{ userGroup.groupD2 }}">{{ userGroup.groupD2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 3">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 4</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupD1 }}">{{ userGroup.groupD1 }}</option>
+						<option value="{{ userGroup.groupC2 }}">{{ userGroup.groupC2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 4">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 5</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupE1 }}">{{ userGroup.groupE1 }}</option>
+						<option value="{{ userGroup.groupF2 }}">{{ userGroup.groupF2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 5">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 6</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupF1 }}">{{ userGroup.groupF1 }}</option>
+						<option value="{{ userGroup.groupE2 }}">{{ userGroup.groupE2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 6">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 7</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupG1 }}">{{ userGroup.groupG1 }}</option>
+						<option value="{{ userGroup.groupH2 }}">{{ userGroup.groupH2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 7">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 8</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupH1 }}">{{ userGroup.groupH1 }}</option>
+						<option value="{{ userGroup.groupG2 }}">{{ userGroup.groupG2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 8">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 9</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win1 }}">{{ userGroup.win1 }}</option>
+						<option value="{{ userGroup.win2 }}">{{ userGroup.win2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 9">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 10</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win3 }}">{{ userGroup.win3 }}</option>
+						<option value="{{ userGroup.win4 }}">{{ userGroup.win4 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 10">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 11</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win5 }}">{{ userGroup.win5 }}</option>
+						<option value="{{ userGroup.win6 }}">{{ userGroup.win6 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 11">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 12</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win7 }}">{{ userGroup.win7 }}</option>
+						<option value="{{ userGroup.win8 }}">{{ userGroup.win8 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 12">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 13</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win9 }}">{{ userGroup.win9 }}</option>
+						<option value="{{ userGroup.win10 }}">{{ userGroup.win10 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 13">
+				</form>
+			</div><div class="view_team">
+				<h4>Game 14</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win11 }}">{{ userGroup.win11 }}</option>
+						<option value="{{ userGroup.win12 }}">{{ userGroup.win12 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 14">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 15</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.loss1 }}">{{ userGroup.loss1 }}</option>
+						<option value="{{ userGroup.loss2 }}">{{ userGroup.loss2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Third">
+				</form>
+			</div>
+			<div class="view_team">
+				<h4>Game 16</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.win13 }}">{{ userGroup.win13 }}</option>
+						<option value="{{ userGroup.win14 }}">{{ userGroup.win14 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Champion">
+				</form>
+			</div>
+		</div>
+	</main>
+	{% endif %}
+</body>
+</html>
