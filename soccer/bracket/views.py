@@ -421,11 +421,20 @@ def userBracket(request, userGroup_id):
 			userGroup.win11 = team;
 		elif str(game) == "Game 12":
 			userGroup.win12 = team;
-		#Add some this here for the losers
 		elif str(game) == "Game 13":
-			userGroup.win13 = team;
+			if str(team) == str(userGroup.win9):
+				userGroup.win13 = userGroup.win9
+				userGroup.loss1 = userGroup.win10
+			else:
+				userGroup.win13 = userGroup.win10
+				userGroup.loss1 = userGroup.win9
 		elif str(game) == "Game 14":
-			userGroup.win14 = team;
+			if str(team) == str(userGroup.win11):
+				userGroup.win14 = userGroup.win11
+				userGroup.loss2 = userGroup.win12
+			else:
+				userGroup.win14 = userGroup.win12
+				userGroup.loss2 = userGroup.win11
 		elif str(game) == "Third":
 			userGroup.third = team;
 		elif str(game) == "Champion":

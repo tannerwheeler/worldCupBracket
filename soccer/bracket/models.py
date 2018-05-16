@@ -10,6 +10,8 @@ class UserGroup(models.Model):
 	
 	edit = models.BooleanField(default=True)
 	
+	prize = models.CharField(max_length=200, default="The winner will receive a gift card to Chick-Fil-A.")
+	
 	
 	groupA1 = models.CharField(max_length=30, default="", blank=True)
 	groupA2 = models.CharField(max_length=30, default="", blank=True)

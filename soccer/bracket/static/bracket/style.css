@@ -96,6 +96,15 @@ table {
 	border: solid;
 }
 
+.userGroupButtons {
+	display: flex;
+	flex-direction: column;
+	padding: 50px;
+	align-items: center;
+	width: 1000px;
+	border: solid;
+}
+
 .view_team {
 	display: flex;
 	flex-direction: column;
@@ -179,4 +188,14 @@ table {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+}
+
+.userGroupMain {
+	display: flex;
+	flex-direction: row;
+}
+
+aside {
+	border: solid;
+	padding: 20px
 }

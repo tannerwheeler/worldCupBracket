@@ -9,6 +9,21 @@
 	
 </head>
 <body>
+	<header style="border:solid">
+		<h1>GROUP ADMIN VIEW</h1>
+	</header>
+
+	<div class="userGroupMain">
+	<div class="userGroupButtons">
+		<p>Number of Groups: {{ userGroup.group_set.count }}</p>
+		<a  href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
+		<p>Allow Editing: {{ userGroup.edit }}</p>
+		<button>Allow Edit</button><br><br>
+		<p><button>Score Group Stage</button></p>
+		<p><button>Score Brackets</button></p>
+	</div>
+
+	<aside>
 	<header>
 		<h1>Select the Winners</h1>
 	</header>
@@ -116,21 +131,11 @@
 					
 					<input type="submit" name="game" value="Game 1">
 				</form>
+				
+				<p>Winner: {{ userGroup.win1 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 2</h4>
-				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
-				{% csrf_token %}
-					<select name="team">
-						<option value="{{ userGroup.groupB1 }}">{{ userGroup.groupB1 }}</option>
-						<option value="{{ userGroup.groupA2 }}">{{ userGroup.groupA2 }}</option>
-					</select>
-					
-					<input type="submit" name="game" value="Game 2">
-				</form>
-			</div>
-			<div class="view_team">
-				<h4>Game 3</h4>
 				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
 				{% csrf_token %}
 					<select name="team">
@@ -138,23 +143,13 @@
 						<option value="{{ userGroup.groupD2 }}">{{ userGroup.groupD2 }}</option>
 					</select>
 					
-					<input type="submit" name="game" value="Game 3">
+					<input type="submit" name="game" value="Game 2">
 				</form>
+				
+				<p>Winner: {{ userGroup.win2 }}</p>
 			</div>
 			<div class="view_team">
-				<h4>Game 4</h4>
-				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
-				{% csrf_token %}
-					<select name="team">
-						<option value="{{ userGroup.groupD1 }}">{{ userGroup.groupD1 }}</option>
-						<option value="{{ userGroup.groupC2 }}">{{ userGroup.groupC2 }}</option>
-					</select>
-					
-					<input type="submit" name="game" value="Game 4">
-				</form>
-			</div>
-			<div class="view_team">
-				<h4>Game 5</h4>
+				<h4>Game 3</h4>
 				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
 				{% csrf_token %}
 					<select name="team">
@@ -162,23 +157,13 @@
 						<option value="{{ userGroup.groupF2 }}">{{ userGroup.groupF2 }}</option>
 					</select>
 					
-					<input type="submit" name="game" value="Game 5">
+					<input type="submit" name="game" value="Game 3">
 				</form>
+				
+				<p>Winner: {{ userGroup.win3 }}</p>
 			</div>
 			<div class="view_team">
-				<h4>Game 6</h4>
-				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
-				{% csrf_token %}
-					<select name="team">
-						<option value="{{ userGroup.groupF1 }}">{{ userGroup.groupF1 }}</option>
-						<option value="{{ userGroup.groupE2 }}">{{ userGroup.groupE2 }}</option>
-					</select>
-					
-					<input type="submit" name="game" value="Game 6">
-				</form>
-			</div>
-			<div class="view_team">
-				<h4>Game 7</h4>
+				<h4>Game 4</h4>
 				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
 				{% csrf_token %}
 					<select name="team">
@@ -186,8 +171,52 @@
 						<option value="{{ userGroup.groupH2 }}">{{ userGroup.groupH2 }}</option>
 					</select>
 					
+					<input type="submit" name="game" value="Game 4">
+				</form>
+				
+				<p>Winner: {{ userGroup.win4 }}</p>
+			</div>
+			<div class="view_team">
+				<h4>Game 5</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupB1 }}">{{ userGroup.groupB1 }}</option>
+						<option value="{{ userGroup.groupA2 }}">{{ userGroup.groupA2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 5">
+				</form>
+				
+				<p>Winner: {{ userGroup.win5 }}</p>
+			</div>
+			<div class="view_team">
+				<h4>Game 6</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupD1 }}">{{ userGroup.groupD1 }}</option>
+						<option value="{{ userGroup.groupC2 }}">{{ userGroup.groupC2 }}</option>
+					</select>
+					
+					<input type="submit" name="game" value="Game 6">
+				</form>
+				
+				<p>Winner: {{ userGroup.win6 }}</p>
+			</div>
+			<div class="view_team">
+				<h4>Game 7</h4>
+				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
+				{% csrf_token %}
+					<select name="team">
+						<option value="{{ userGroup.groupF1 }}">{{ userGroup.groupF1 }}</option>
+						<option value="{{ userGroup.groupE2 }}">{{ userGroup.groupE2 }}</option>
+					</select>
+					
 					<input type="submit" name="game" value="Game 7">
 				</form>
+				
+				<p>Winner: {{ userGroup.win7 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 8</h4>
@@ -200,6 +229,8 @@
 					
 					<input type="submit" name="game" value="Game 8">
 				</form>
+				
+				<p>Winner: {{ userGroup.win8 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 9</h4>
@@ -212,6 +243,8 @@
 					
 					<input type="submit" name="game" value="Game 9">
 				</form>
+				
+				<p>Winner: {{ userGroup.win9 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 10</h4>
@@ -224,6 +257,8 @@
 					
 					<input type="submit" name="game" value="Game 10">
 				</form>
+				
+				<p>Winner: {{ userGroup.win10 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 11</h4>
@@ -236,6 +271,8 @@
 					
 					<input type="submit" name="game" value="Game 11">
 				</form>
+				
+				<p>Winner: {{ userGroup.win11 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 12</h4>
@@ -248,6 +285,8 @@
 					
 					<input type="submit" name="game" value="Game 12">
 				</form>
+				
+				<p>Winner: {{ userGroup.win12 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 13</h4>
@@ -260,7 +299,10 @@
 					
 					<input type="submit" name="game" value="Game 13">
 				</form>
-			</div><div class="view_team">
+				
+				<p>Winner: {{ userGroup.win13 }}</p>
+			</div>
+			<div class="view_team">
 				<h4>Game 14</h4>
 				<form action="{% url 'bracket:userBracket' userGroup.id %}" method="POST">
 				{% csrf_token %}
@@ -271,6 +313,8 @@
 					
 					<input type="submit" name="game" value="Game 14">
 				</form>
+				
+				<p>Winner: {{ userGroup.win14 }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 15</h4>
@@ -283,6 +327,8 @@
 					
 					<input type="submit" name="game" value="Third">
 				</form>
+				
+				<p>Winner: {{ userGroup.third }}</p>
 			</div>
 			<div class="view_team">
 				<h4>Game 16</h4>
@@ -295,9 +341,655 @@
 					
 					<input type="submit" name="game" value="Champion">
 				</form>
+				
+				<p>Winner: {{ userGroup.champion }}</p>
 			</div>
 		</div>
 	</main>
 	{% endif %}
+	</aside>
+	</div>
+	
+	<br><br>
+	<footer>
+		<table>
+		<tr>
+			<td>
+			{%if userGroup.groupA1 %}
+				<p class="team">{{ userGroup.groupA1 }}</p>
+			{% else %}
+				<p class="team">A1</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{%if userGroup.groupB1 %}
+				<p class="team">{{ userGroup.groupB1 }}</p>
+			{% else %}
+				<p class="team">B1</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win1 %}
+				<p>Game 1</p>
+				<p class="team">{{ userGroup.win1 }}</p>
+			{% elif userGroup.groupA1 and userGroup.groupB2 %}
+				<p>Game 1</p>
+				<p class="team">Winner of {{ userGroup.groupA1 }} vs {{ userGroup.groupB2 }}</p>
+			{% elif userGroup.groupB2 %}
+				<p>Game 1</p>
+				<p class="team">Winner of A1 vs {{ userGroup.groupB2 }}</p>
+			{% elif userGroup.groupA1 %}
+				<p>Game 1</p>
+				<p class="team">Winner of {{ userGroup.groupA1 }} vs B2</p>
+			{% else %}
+				<p>Game 1</p>
+				<p class="team">Winner of A1 vs B2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{% if userGroup.win5 %}
+				<p>Game 5</p>
+				<p class="team">{{ userGroup.win5 }}</p>
+			{% elif userGroup.groupB1 and userGroup.groupA2 %}
+				<p>Game 5</p>
+				<p class="team">Winner of {{ userGroup.groupB1 }} vs {{ userGroup.groupA2 }}</p>
+			{% elif userGroup.groupA2 %}
+				<p>Game 5</p>
+				<p class="team">Winner of B1 vs {{ userGroup.groupA2 }}</p>
+			{% elif userGroup.groupB1 %}
+				<p>Game 5</p>
+				<p class="team">Winner of {{ userGroup.groupB1 }} vs A2</p>
+			{% else %}
+				<p>Game 5</p>
+				<p class="team">Winner of B1 vs A2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupB2 %}
+				<p class="team">{{ userGroup.groupB2 }}</p>
+			{% else %}
+				<p class="team">B2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{%if userGroup.groupA2 %}
+				<p class="team">{{ userGroup.groupA2 }}</p>
+			{% else %}
+				<p class="team">A2</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win9 %}
+				<p>Game 9</p>
+				<p class="team">{{ userGroup.win9 }}</p>
+			{% elif userGroup.win1 and userGroup.win2 %}
+				<p>Game 9</p>
+				<p class="team">Winner of {{ userGroup.win1 }} vs {{ userGroup.win2 }}</p>
+			{% elif userGroup.win1 %}
+				<p>Game 9</p>
+				<p class="team">Winner of {{ userGroup.win1 }} and ({{ userGroup.groupA1 }} vs {{ userGroup.groupB2 }})</p>
+			{% elif userGroup.win2 %}
+				<p>Game 9</p>
+				<p class="team">Winner of ({{ userGroup.groupA1 }} and {{ userGroup.groupB2 }}) vs {{ userGroup.win2 }}</p>
+			{% else %}
+				<p>Game 9</p>
+				<p class="team">Winner of ({{ userGroup.groupA1 }} vs {{ userGroup.groupB2 }}) and ({{ userGroup.groupC1 }} vs {{ userGroup.groupD2 }})</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{% if userGroup.win11 %}
+				<p>Game 11</p>
+				<p class="team">{{ userGroup.win11 }}</p>
+			{% elif userGroup.win5 and userGroup.win6 %}
+				<p>Game 11</p>
+				<p class="team">Winner of {{ userGroup.win5 }} vs {{ userGroup.win6 }}</p>
+			{% elif userGroup.win5 %}
+				<p>Game 11</p>
+				<p class="team">Winner of {{ userGroup.win5 }} and ({{ userGroup.groupC1 }} vs {{ userGroup.groupD2 }})</p>
+			{% elif userGroup.win6 %}
+				<p>Game 11</p>
+				<p class="team">Winner of ({{ userGroup.groupB1 }} and {{ userGroup.groupA2 }}) vs {{ userGroup.win6 }}</p>
+			{% else %}
+				<p>Game 11</p>
+				<p class="team">Winner of ({{ userGroup.groupB1 }} vs {{ userGroup.groupA2 }}) and ({{ userGroup.groupD1 }} vs {{ userGroup.groupC2 }})</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupC1 %}
+				<p class="team">{{ userGroup.groupC1 }}</p>
+			{% else %}
+				<p class="team">C1</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{%if userGroup.groupD1 %}
+				<p class="team">{{ userGroup.groupD1 }}</p>
+			{% else %}
+				<p class="team">D1</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win2 %}
+				<p>Game 2</p>
+				<p class="team">{{ userGroup.win2 }}</p>
+			{% elif userGroup.groupC1 and userGroup.groupD2 %}
+				<p>Game 2</p>
+				<p class="team">Winner of {{ userGroup.groupC1 }} vs {{ userGroup.groupD2 }}</p>
+			{% elif userGroup.groupD2 %}
+				<p>Game 2</p>
+				<p class="team">Winner of C1 vs {{ userGroup.groupD2 }}</p>
+			{% elif userGroup.groupC1 %}
+				<p>Game 2</p>
+				<p class="team">Winner of {{ userGroup.groupC1 }} vs D2</p>
+			{% else %}
+				<p>Game 2</p>
+				<p class="team">Winner of C1 vs D2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">Champions</p>
+				
+				{% if userGroup.champion %}
+					<p>{{ userGroup.champion }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{% if userGroup.win6 %}
+				<p>Game 6</p>
+				<p class="team">{{ userGroup.win6 }}</p>
+			{% elif userGroup.groupD1 and userGroup.groupC2 %}
+				<p>Game 6</p>
+				<p class="team">Winner of {{ userGroup.groupD1 }} vs {{ userGroup.groupC2 }}</p>
+			{% elif userGroup.groupB2 %}
+				<p>Game 6</p>
+				<p class="team">Winner of D1 vs {{ userGroup.groupC2 }}</p>
+			{% elif userGroup.groupD1 %}
+				<p>Game 6</p>
+				<p class="team">Winner of {{ userGroup.groupD1 }} vs C2</p>
+			{% else %}
+				<p>Game 6</p>
+				<p class="team">Winner of D1 vs C2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupD2 %}
+				<p class="team">{{ userGroup.groupD2 }}</p>
+			{% else %}
+				<p class="team">D2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{%if userGroup.groupC2 %}
+				<p class="team">{{ userGroup.groupC2 }}</p>
+			{% else %}
+				<p class="team">C2</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win13 %}
+				<p>Game 13</p>
+				<p class="team">{{ userGroup.win13 }}</p>
+			{% elif userGroup.win9 and userGroup.win10 %}
+				<p>Game 13</p>
+				<p class="team">{{ userGroup.win9 }} vs {{ userGroup.win10 }}</p>
+			{% else %}
+				<p>Game 13</p>
+				<p class="team">Left Side Winner</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="team">vs</p>
+			</td>
+			<td>
+			{% if userGroup.win14 %}
+				<p>Game 14</p>
+				<p class="team">{{ userGroup.win14 }}</p>
+			{% elif userGroup.win12 and userGroup.win11 %}
+				<p>Game 14</p>
+				<p class="team">{{ userGroup.win11 }} vs {{ userGroup.win12 }}</p>
+			{% else %}
+				<p>Game 14</p>
+				<p class="team">Left Side Winner</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupE1 %}
+				<p class="team">{{ userGroup.groupE1 }}</p>
+			{% else %}
+				<p class="team">E1</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{%if userGroup.groupF1 %}
+				<p class="team">{{ userGroup.groupF1 }}</p>
+			{% else %}
+				<p class="team">F1</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win3 %}
+				<p>Game 13</p>
+				<p class="team">{{ userGroup.win3 }}</p>
+			{% elif userGroup.groupE1 and userGroup.groupF2 %}
+				<p>Game 13</p>
+				<p class="team">Winner of {{ userGroup.groupE1 }} vs {{ userGroup.groupF2 }}</p>
+			{% elif userGroup.groupF2 %}
+				<p>Game 13</p>
+				<p class="team">Winner of E1 vs {{ userGroup.groupF2 }}</p>
+			{% elif userGroup.groupE1 %}
+				<p>Game 13</p>
+				<p class="team">Winner of {{ userGroup.groupE1 }} vs F2</p>
+			{% else %}
+				<p>Game 13</p>
+				<p class="team">Winner of E1 vs F2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="team">3rd Place</p>
+				
+				{% if userGroup.third %}
+					<p>{{ userGroup.third }}</p>
+				{% else %}
+					<p></p>
+				{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{% if userGroup.win7 %}
+				<p>Game 7</p>
+				<p class="team">{{ userGroup.win7 }}</p>
+			{% elif userGroup.groupF1 and userGroup.groupE2 %}
+				<p>Game 7</p>
+				<p class="team">Winner of {{ userGroup.groupF1 }} vs {{ userGroup.groupE2 }}</p>
+			{% elif userGroup.groupE2 %}
+				<p>Game 7</p>
+				<p class="team">Winner of F1 vs {{ userGroup.groupE2 }}</p>
+			{% elif userGroup.groupF1 %}
+				<p>Game 7</p>
+				<p class="team">Winner of {{ userGroup.groupF1 }} vs E2</p>
+			{% else %}
+				<p>Game 7</p>
+				<p class="team">Winner of F1 vs E2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupF2 %}
+				<p class="team">{{ userGroup.groupF2 }}</p>
+			{% else %}
+				<p class="team">F2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{%if userGroup.groupE2 %}
+				<p class="team">{{ userGroup.groupE2 }}</p>
+			{% else %}
+				<p class="team">E2</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win10 %}
+				<p>Game 10</p>
+				<p class="team">{{ userGroup.win10 }}</p>
+			{% elif userGroup.win3 and userGroup.win4 %}
+				<p>Game 10</p>
+				<p class="team">Winner of {{ userGroup.win3 }} vs {{ userGroup.win4 }}</p>
+			{% elif userGroup.win3 %}
+				<p>Game 10</p>
+				<p class="team">Winner of {{ userGroup.win3 }} and ({{ userGroup.groupG1 }} vs {{ userGroup.groupH2 }})</p>
+			{% elif userGroup.win4 %}
+				<p>Game 10</p>
+				<p class="team">Winner of ({{ userGroup.groupE1 }} and {{ userGroup.groupF2 }}) vs {{ userGroup.win4 }}</p>
+			{% else %}
+				<p>Game 10</p>
+				<p class="team">Winner of ({{ userGroup.groupE1 }} vs {{ userGroup.groupF2 }}) and ({{ userGroup.groupG1 }} vs {{ userGroup.groupH2 }})</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{% if userGroup.win12 %}
+				<p>Game 12</p>
+				<p class="team">{{ userGroup.win12 }}</p>
+			{% elif userGroup.win7 and userGroup.win8 %}
+				<p>Game 12</p>
+				<p class="team">Winner of {{ userGroup.win7 }} vs {{ userGroup.win8 }}</p>
+			{% elif userGroup.win7 %}
+				<p>Game 12</p>
+				<p class="team">Winner of {{ userGroup.win7 }} and ({{ userGroup.groupH1 }} vs {{ userGroup.groupG2 }})</p>
+			{% elif userGroup.win8 %}
+				<p>Game 12</p>
+				<p class="team">Winner of ({{ userGroup.groupH1 }} and {{ userGroup.groupG2 }}) vs {{ userGroup.win8 }}</p>
+			{% else %}
+				<p>Game 12</p>
+				<p class="team">Winner of ({{ userGroup.groupF1 }} vs {{ userGroup.groupE2 }}) and ({{ userGroup.groupH1 }} vs {{ userGroup.groupG2 }})</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupG1 %}
+				<p class="team">{{ userGroup.groupG1 }}</p>
+			{% else %}
+				<p class="team">G1</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┐</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">┌---</p>
+			</td>
+			<td>
+			{%if userGroup.groupH1 %}
+				<p class="team">{{ userGroup.groupH1 }}</p>
+			{% else %}
+				<p class="team">H1</p>
+			{% endif %}
+			</td>
+		</tr>
+		<tr>
+			<td>
+			</td>
+			<td>
+			{% if userGroup.win4 %}
+				<p>Game 4</p>
+				<p class="team">{{ userGroup.win4 }}</p>
+			{% elif userGroup.groupG1 and userGroup.groupH2 %}
+				<p>Game 4</p>
+				<p class="team">Winner of {{ userGroup.groupG1 }} vs {{ userGroup.groupH2 }}</p>
+			{% elif userGroup.groupH2 %}
+				<p>Game 4</p>
+				<p class="team">Winner of G1 vs {{ userGroup.groupH2 }}</p>
+			{% elif userGroup.groupG1 %}
+				<p>Game 4</p>
+				<p class="team">Winner of {{ userGroup.groupG1 }} vs H2</p>
+			{% else %}
+				<p>Game 4</p>
+				<p class="team">Winner of G1 vs H2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{% if userGroup.win8 %}
+				<p>Game 8</p>
+				<p class="team">{{ userGroup.win8 }}</p>
+			{% elif userGroup.groupH1 and userGroup.groupG2 %}
+				<p>Game 8</p>
+				<p class="team">Winner of {{ userGroup.groupH1 }} vs {{ userGroup.groupG2 }}</p>
+			{% elif userGroup.groupG2 %}
+				<p>Game 8</p>
+				<p class="team">Winner of H1 vs {{ userGroup.groupG2 }}</p>
+			{% elif userGroup.groupH1 %}
+				<p>Game 8</p>
+				<p class="team">Winner of {{ userGroup.groupH1 }} vs G2</p>
+			{% else %}
+				<p>Game 8</p>
+				<p class="team">Winner of H1 vs G2</p>
+			{% endif %}
+			</td>
+			<td>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			{%if userGroup.groupH2 %}
+				<p class="team">{{ userGroup.groupH2 }}</p>
+			{% else %}
+				<p class="team">H2</p>
+			{% endif %}
+			</td>
+			<td>
+				<p class="symbol">---┘</p>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+			</td>
+			<td>
+				<p class="symbol">└---</p>
+			</td>
+			<td>
+			{%if userGroup.groupG2 %}
+				<p class="team">{{ userGroup.groupG2 }}</p>
+			{% else %}
+				<p class="team">G2</p>
+			{% endif %}
+			</td>
+		</tr>
+		</table>
+	</footer>
+	
 </body>
 </html>
