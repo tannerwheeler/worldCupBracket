@@ -11,6 +11,7 @@ class UserGroup(models.Model):
 	edit = models.BooleanField(default=True)
 	
 	prize = models.CharField(max_length=200, default="The winner will receive a gift card to Chick-Fil-A.")
+	leader = models.CharField(max_length=300, default="Not Available")
 	
 	
 	groupA1 = models.CharField(max_length=30, default="", blank=True)

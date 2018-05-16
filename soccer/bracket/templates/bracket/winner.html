@@ -15,12 +15,14 @@
 
 	<div class="userGroupMain">
 	<div class="userGroupButtons">
+		<p style="border: solid;padding:10px">Prize: <br>{{ userGroup.prize }}</p>
+		<p style="border: solid;padding:10px">Number of People in Group: {{ userGroup.user_set.count }}</p>
 		<p>Number of Groups: {{ userGroup.group_set.count }}</p>
 		<a  href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
-		<p>Allow Editing: {{ userGroup.edit }}</p>
+		<p id="editingText">Allow Editing: {{ userGroup.edit }}</p>
 		<button>Allow Edit</button><br><br>
-		<p><button>Score Group Stage</button></p>
-		<p><button>Score Brackets</button></p>
+		<p><a href=""><button>Score Group Stage</button></a></p>
+		<p><a href=""><button>Score Brackets</button></a></p>
 	</div>
 
 	<aside>
@@ -728,19 +730,19 @@
 			</td>
 			<td>
 			{% if userGroup.win3 %}
-				<p>Game 13</p>
+				<p>Game 3</p>
 				<p class="team">{{ userGroup.win3 }}</p>
 			{% elif userGroup.groupE1 and userGroup.groupF2 %}
-				<p>Game 13</p>
+				<p>Game 3</p>
 				<p class="team">Winner of {{ userGroup.groupE1 }} vs {{ userGroup.groupF2 }}</p>
 			{% elif userGroup.groupF2 %}
-				<p>Game 13</p>
+				<p>Game 3</p>
 				<p class="team">Winner of E1 vs {{ userGroup.groupF2 }}</p>
 			{% elif userGroup.groupE1 %}
-				<p>Game 13</p>
+				<p>Game 3</p>
 				<p class="team">Winner of {{ userGroup.groupE1 }} vs F2</p>
 			{% else %}
-				<p>Game 13</p>
+				<p>Game 3</p>
 				<p class="team">Winner of E1 vs F2</p>
 			{% endif %}
 			</td>
