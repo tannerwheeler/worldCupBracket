@@ -17,11 +17,12 @@
 	<div class="userGroupButtons">
 		<p style="border: solid;padding:10px">Prize: <br>{{ userGroup.prize }}</p>
 		<p style="border: solid;padding:10px">Number of People in Group: {{ userGroup.user_set.count }}</p>
+		<p style="border: solid;padding:10px">Current Leader: {{ userGroup.leader }}</p>
 		<p>Number of Groups: {{ userGroup.group_set.count }}</p>
 		<a  href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
 		<p id="editingText">Allow Editing: {{ userGroup.edit }}</p>
 		<button>Allow Edit</button><br><br>
-		<p><a href=""><button>Score Group Stage</button></a></p>
+		<p><a href="{% url 'bracket:sumGroupStage' userGroup.id %}"><button>Score Group Stage</button></a></p>
 		<p><a href=""><button>Score Brackets</button></a></p>
 	</div>
 

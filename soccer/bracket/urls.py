@@ -21,4 +21,5 @@ urlpatterns = [
 	path('userAdmin/<int:userGroup_id>/create/', views.adminGroups, name='adminGroups'),
 	path('userAdmin/<int:userGroup_id>/create/addG/', views.addG, name='addG'),
 	path('userAdmin/<int:userGroup_id>/create/addT/', views.addT, name='addT'),
+	path('userAdmin/<int:userGroup_id>/view/sumGroup/', views.sumGroupStage, name='sumGroupStage'),
 ]

@@ -27,6 +27,8 @@
 		var check2 = function(){
 			var fn = document.getElementById('firstName').value;
 			var fne = document.getElementById('fnError');
+			var ln = document.getElementById('lastName').value;
+			var lne = document.getElementById('lnError');
 			var un = document.getElementById('userName').value;
 			var une = document.getElementById('unError');
 			var p = document.getElementById('password').value;
@@ -36,9 +38,13 @@
 			var ge = document.getElementById('gError');
 			var button = document.getElementById('submit');
 			
-			if(!fn || !un || !p || !pc || !g || p != pc){
+			if(!fn || !ln || !un || !p || !pc || !g || p != pc){
 				if(!fn){
 					fne.textContent = "Please Enter a Name.";
+				}
+				
+				if(!ln){
+					lne.textContent = "Please Enter a Prize.";
 				}
 			
 				if(!un){
@@ -58,6 +64,7 @@
 		
 			} else {
 				fne.textContent = "";
+				lne.textContent = "";
 				une.textContent = "";
 				pe.textContent = "";
 				ge.textContent = "";
@@ -72,6 +79,15 @@
 			
 			if(fn){
 				fne.textContent = "";
+			}
+		}
+		
+		var check4 = function(){
+			var ln = document.getElementById('lastName').value;
+			var lne = document.getElementById('lnError');
+			
+			if(ln){
+				lne.textContent = "";
 			}
 		}
 		
@@ -98,6 +114,10 @@
 			<label for="firstName">Name:</label>
 			<input type="text" name="firstName" id="firstName" oninput="check3()">
 			<p id="fnError" class="error"></p>
+			
+			<label for="lastName">Prize:</label>
+			<textarea name="lastName" id="lastName" oninput="check4()"></textarea>
+			<p id="lnError" class="error"></p>
 			
 			<label for="userName">User Name:</label>
 			<input type="text" name="userName" id="userName" oninput="check5()">
