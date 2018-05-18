@@ -9,6 +9,7 @@ class UserGroup(models.Model):
 	groupID = models.CharField(max_length=10)
 	
 	edit = models.BooleanField(default=True)
+	editBracket = models.BooleanField(default=False)
 	
 	prize = models.CharField(max_length=200, default="The winner will receive a gift card to Chick-Fil-A.")
 	leader = models.CharField(max_length=300, default="Not Available")
@@ -60,6 +61,8 @@ class User(models.Model):
 	lastName = models.CharField(max_length=30)
 	userName = models.CharField(max_length=30)
 	password = models.CharField(max_length=30)
+	groupPoints = models.IntegerField(default=0)
+	bracketPoints = models.IntegerField(default=0)
 	points = models.IntegerField(default=0)
 	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)
 
@@ -106,8 +109,6 @@ class User(models.Model):
 	
 class Group(models.Model):
 	name = models.CharField(max_length=20)
-	winner1 = models.CharField(max_length=20, blank=True)
-	winner2 = models.CharField(max_length=20, blank=True)
 	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE, default=11)
 	
 	def __str__(self):
@@ -122,12 +123,3 @@ class Team(models.Model):
 	def __str__(self):
 		return self.name
 		
-	
-class Admin(models.Model):
-	firstName = models.CharField(max_length=30)
-	lastName = models.CharField(max_length=30)
-	userName = models.CharField(max_length=30)
-	password = models.CharField(max_length=30)
-	
-	def __str__(self):
-		return self.userName

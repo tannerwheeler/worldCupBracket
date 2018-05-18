@@ -24,10 +24,14 @@
 		</div>
 		<div class="user-header-piece2">
 			<div class="header-piece2">
-				<button>Change Bracket:<br>Group Stage</button>
+				{% if user.group.edit and not user.group.editBracket %}
+					<a href=""><button>Change Bracket:<br>Group Stage</button></a>
+				{% endif %}
 			</div>
 			<div class="header-piece2">
-				<button>Change Bracket:<br>Bracket Stage</button>
+				{% if user.group.edit and user.group.editBracket %}
+					<a href=""><button>Change Bracket:<br>Bracket Stage</button></a>
+				{% endif %}
 			</div>
 			<div class="header-piece2">
 				<p align="center">Ultimate Prize:<br>{{ user.group.prize }}

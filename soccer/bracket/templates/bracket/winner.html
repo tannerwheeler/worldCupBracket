@@ -20,10 +20,24 @@
 		<p style="border: solid;padding:10px">Current Leader: {{ userGroup.leader }}</p>
 		<p>Number of Groups: {{ userGroup.group_set.count }}</p>
 		<a  href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
+		
+		
+		
 		<p id="editingText">Allow Editing: {{ userGroup.edit }}</p>
-		<button>Allow Edit</button><br><br>
-		<p><a href="{% url 'bracket:sumGroupStage' userGroup.id %}"><button>Score Group Stage</button></a></p>
-		<p><a href=""><button>Score Brackets</button></a></p>
+		{% if userGroup.edit %}
+			<a href="{% url 'bracket:userGroupEdit' userGroup.id %}"><button>Stop Editing</button></a><br><br>
+		{% else %}
+			<a href="{% url 'bracket:userGroupEdit' userGroup.id %}"><button>Allow Editing</button></a><br><br>
+		{% endif %}
+		
+		{% if not userGroup.editBracket %}
+			<p align="center">Click to score group stage and allow bracket editing:<br><a href="{% url 'bracket:sumGroupStage' userGroup.id %}"><button>Score Group Stage</button></a></p>
+		{% endif %}
+		
+		{% if userGroup.editBracket %}
+			<p align="center">Click to score bracket stage<a href="{% url 'bracket:sumBracketStage' userGroup.id %}"><button>Score Brackets</button></a></p>
+		{% endif %}
+	
 	</div>
 
 	<aside>
@@ -45,7 +59,8 @@
 					{% endfor %}
 				{% endfor %}
 			</select>
-		
+			<br>
+			
 			<label>Choose A Position</label>
 			<select class="teamOption" name="position" form="setTeam">
 				<option value="NOTHING"></option>
@@ -66,7 +81,7 @@
 				<option value="H1">H1</option>
 				<option value="H2">H2</option>
 			</select>
-			
+			<br>
 			<input id="submitTeamButton" type="submit" value="Submit Team">
 		</form>
 	</header><br>

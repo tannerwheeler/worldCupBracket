@@ -16,10 +16,12 @@ urlpatterns = [
 	path('<int:user_id>/bracket/win', views.win, name='win'),
 	path('<int:user_id>/bracket/dele', views.dele, name='dele'),
 	path('userAdmin/<int:userGroup_id>/view/', views.userGroupView, name='userGroupView'),
+	path('userAdmin/<int:userGroup_id>/view/editChange', views.userGroupEdit, name='userGroupEdit'),
 	path('userAdmin/<int:userGroup_id>/view/group/', views.userStage, name='userStage'),
 	path('userAdmin/<int:userGroup_id>/view/bracket/', views.userBracket, name='userBracket'),
 	path('userAdmin/<int:userGroup_id>/create/', views.adminGroups, name='adminGroups'),
 	path('userAdmin/<int:userGroup_id>/create/addG/', views.addG, name='addG'),
 	path('userAdmin/<int:userGroup_id>/create/addT/', views.addT, name='addT'),
 	path('userAdmin/<int:userGroup_id>/view/sumGroup/', views.sumGroupStage, name='sumGroupStage'),
+	path('userAdmin/<int:userGroup_id>/view/sumBracket/', views.sumBracketStage, name='sumBracketStage'),
 ]

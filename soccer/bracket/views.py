@@ -5,10 +5,12 @@ from .models import *
 
 # Create your views here.
 
+
+# Main Page
 def index(request):
 	return render(request, 'bracket/main.html',)
 	
-	
+# User main view page
 def userView(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 	
@@ -16,11 +18,12 @@ def userView(request, user_id):
 	
 	return render(request, 'bracket/bracket.html', context)
 	
-	
+
+# Page to create a User
 def createUser(request):
 	return render(request, 'bracket/createUser.html',)
 	
-	
+# Creates a User	
 def userCreate(request):
 	firstNameG = request.POST.get('firstName')
 	lastNameG = request.POST.get('lastName')
@@ -50,10 +53,11 @@ def userCreate(request):
 	return	HttpResponseRedirect(reverse('bracket:index',))
 	
 	
-	
+# Page to create a userGroup
 def createGroup(request):
 	return render(request, 'bracket/createGroup.html',)
-	
+
+# Creates a userGroup	
 def groupCreate(request):
 	nameG = request.POST.get('firstName')
 	prizeG = request.POST.get('lastName')
@@ -83,7 +87,8 @@ def groupCreate(request):
 
 		return	HttpResponseRedirect(reverse('bracket:index',))
 	
-	
+
+# Finishing Bracket	
 def bracket(request, user_id):
 	try:
 		person = User.objects.get(id=user_id)
@@ -91,12 +96,65 @@ def bracket(request, user_id):
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
 	context = {'user': person,}
+	
 	if person.group.edit:
 		return render(request, 'bracket/finish.html', context)	
 	else:
 		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 		
+		
+# Finishing Bracket after Group Stage		
+def bracketEdit(request, user_id):
+	try:
+		person = User.objects.get(id=user_id)
+	except:
+		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	context = {'user': person,}
 	
+	if person.group.edit:
+		person.groupA1 = person.group.groupA1
+		person.groupA2 = person.group.groupA2
+		person.groupB1 = person.group.groupB1
+		person.groupB2 = person.group.groupB2
+		person.groupC1 = person.group.groupC1
+		person.groupC2 = person.group.groupC2
+		person.groupD1 = person.group.groupD1
+		person.groupD2 = person.group.groupD2
+		person.groupE1 = person.group.groupE1
+		person.groupE2 = person.group.groupE2
+		person.groupF1 = person.group.groupF1
+		person.groupF2 = person.group.groupF2
+		person.groupG1 = person.group.groupG1
+		person.groupG2 = person.group.groupG2
+		person.groupH1 = person.group.groupH1
+		person.groupH2 = person.group.groupH2
+		
+		person.win1 = ""
+		person.win2 = ""
+		person.win3 = ""
+		person.win4 = ""
+		person.win5 = ""
+		person.win6 = ""
+		person.win7 = ""
+		person.win8 = ""
+		person.win9 = ""
+		person.win10 = ""
+		person.win11 = ""
+		person.win12 = ""
+		person.loss1 = ""
+		person.loss2 = ""
+		person.win13 = ""
+		person.win14 = ""
+		person.champion = ""
+		person.third = ""
+	
+		return render(request, 'bracket/finish.html', context)	
+	else:
+		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
+		
+		
+# Make Group Stage Choices
 def choice(request, user_id):
 	try:
 		person = User.objects.get(id=user_id)
@@ -115,6 +173,8 @@ def choice(request, user_id):
 	else:
 		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 	
+	
+# Submits Group winner and second place choices
 def submit(request, user_id):
 	#return HttpResponse("Submit")
 	person = User.objects.get(id=user_id)
@@ -161,7 +221,7 @@ def submit(request, user_id):
 	return HttpResponseRedirect(reverse('bracket:choice', args=(person.id,)))
 	
 
-	
+# Submits the winner and saves to User	
 def win(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 	
@@ -217,7 +277,7 @@ def win(request, user_id):
 	return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
 	
 	
-	
+# Deletes the previous choice for the winners
 def dele(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 	
@@ -264,6 +324,7 @@ def dele(request, user_id):
 	return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
 	
 	
+# Main view for adding teams and groups to userGroup
 def adminGroups(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	groups = admin.group_set.all()
@@ -273,7 +334,7 @@ def adminGroups(request, userGroup_id):
 	return render(request, 'bracket/adminGroupsTest.html', context)
 	
 
-	
+# Adds a group to a userGroup
 def addG(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	groups = admin.group_set.all()
@@ -299,7 +360,7 @@ def addG(request, userGroup_id):
 	return render(request, 'bracket/adminGroupsTest.html', context,)
 	
 	
-	
+# Adds a team to a group in the userGroup
 def addT(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	nameT = request.POST.get('Name')
@@ -330,7 +391,7 @@ def addT(request, userGroup_id):
 	return render(request, 'bracket/adminGroupsTest.html', context,)
 	
 	
-	
+# Main view for a userGroup
 def userGroupView(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
@@ -338,7 +399,21 @@ def userGroupView(request, userGroup_id):
 	
 	return render(request, 'bracket/winner.html', context,)
 	
+# Changes value of editing for the userGroup
+def userGroupEdit(request, userGroup_id):
+	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
+	if admin.edit:
+		admin.edit = False
+	else:
+		admin.edit = True
+		
+	admin.save()
+		
+	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(admin.id,)))
+	
+	
+# Setting the winners of the groups
 def userStage(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
@@ -390,6 +465,7 @@ def userStage(request, userGroup_id):
 	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
 	
 	
+# Setting the winners of the bracket
 def userBracket(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
@@ -451,161 +527,265 @@ def userBracket(request, userGroup_id):
 	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(userGroup.id,)))
 	
 	
-	
+# Gives points to the Users in the userGroup for  the Groups
 def sumGroupStage(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
-	currentLeader = False
-	name = ""
+	if not admin.editBracket:
+		currentLeader = False
+		name = ""
 	
-	for person in admin.user_set.all():
-		leader1 = admin.groupA1
-		leader2 = admin.groupA2
+		for person in admin.user_set.all():
+			person.groupPoints = 0
+	
+			leader1 = admin.groupA1
+			leader2 = admin.groupA2
 		
-		if leader1 == person.groupA1 and leader2 == person.groupA2:
-			person.points = person.points + 3
-		elif leader1 == person.groupA1:
-			person.points = person.points + 2
-		elif leader2 == person.groupA2:
-			person.points = person.points + 2
-		elif leader1 == person.groupA2 and leader2 == person.groupA1:
-			person.points = person.points + 2
-		elif leader1 == person.groupA2:
-			person.points = person.points + 1
-		elif leader2 == person.groupA1:
-			person.points = person.points + 1
+			if leader1 == person.groupA1 and leader2 == person.groupA2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupA1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupA2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupA2 and leader2 == person.groupA1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupA2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupA1:
+				person.groupPoints = person.groupPoints + 1
 		
-		leader1 = admin.groupB1
-		leader2 = admin.groupB2
+			leader1 = admin.groupB1
+			leader2 = admin.groupB2
 		
-		if leader1 == person.groupB1 and leader2 == person.groupB2:
-			person.points = person.points + 3
-		elif leader1 == person.groupB1:
-			person.points = person.points + 2
-		elif leader2 == person.groupB2:
-			person.points = person.points + 2
-		elif leader1 == person.groupB2 and leader2 == person.groupB1:
-			person.points = person.points + 2
-		elif leader1 == person.groupB2:
-			person.points = person.points + 1
-		elif leader2 == person.groupB1:
-			person.points = person.points + 1
+			if leader1 == person.groupB1 and leader2 == person.groupB2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupB1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupB2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupB2 and leader2 == person.groupB1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupB2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupB1:
+				person.groupPoints = person.groupPoints + 1
 		
-		leader1 = admin.groupC1
-		leader2 = admin.groupC2
+			leader1 = admin.groupC1
+			leader2 = admin.groupC2
 		
-		if leader1 == person.groupC1 and leader2 == person.groupC2:
-			person.points = person.points + 3
-		elif leader1 == person.groupC1:
-			person.points = person.points + 2
-		elif leader2 == person.groupC2:
-			person.points = person.points + 2
-		elif leader1 == person.groupC2 and leader2 == person.groupC1:
-			person.points = person.points + 2
-		elif leader1 == person.groupC2:
-			person.points = person.points + 1
-		elif leader2 == person.groupC1:
-			person.points = person.points + 1
-		
-		
-		leader1 = admin.groupD1
-		leader2 = admin.groupD2
-		
-		if leader1 == person.groupD1 and leader2 == person.groupD2:
-			person.points = person.points + 3
-		elif leader1 == person.groupD1:
-			person.points = person.points + 2
-		elif leader2 == person.groupD2:
-			person.points = person.points + 2
-		elif leader1 == person.groupD2 and leader2 == person.groupD1:
-			person.points = person.points + 2
-		elif leader1 == person.groupD2:
-			person.points = person.points + 1
-		elif leader2 == person.groupD1:
-			person.points = person.points + 1
+			if leader1 == person.groupC1 and leader2 == person.groupC2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupC1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupC2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupC2 and leader2 == person.groupC1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupC2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupC1:
+				person.groupPoints = person.groupPoints + 1
 		
 		
-		leader1 = admin.groupE1
-		leader2 = admin.groupE2
+			leader1 = admin.groupD1
+			leader2 = admin.groupD2
 		
-		if leader1 == person.groupE1 and leader2 == person.groupE2:
-			person.points = person.points + 3
-		elif leader1 == person.groupE1:
-			person.points = person.points + 2
-		elif leader2 == person.groupE2:
-			person.points = person.points + 2
-		elif leader1 == person.groupE2 and leader2 == person.groupE1:
-			person.points = person.points + 2
-		elif leader1 == person.groupE2:
-			person.points = person.points + 1
-		elif leader2 == person.groupE1:
-			person.points = person.points + 1
-		
-		
-		leader1 = admin.groupF1
-		leader2 = admin.groupF2
-		
-		if leader1 == person.groupF1 and leader2 == person.groupF2:
-			person.points = person.points + 3
-		elif leader1 == person.groupF1:
-			person.points = person.points + 2
-		elif leader2 == person.groupF2:
-			person.points = person.points + 2
-		elif leader1 == person.groupF2 and leader2 == person.groupF1:
-			person.points = person.points + 2
-		elif leader1 == person.groupF2:
-			person.points = person.points + 1
-		elif leader2 == person.groupF1:
-			person.points = person.points + 1
+			if leader1 == person.groupD1 and leader2 == person.groupD2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupD1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupD2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupD2 and leader2 == person.groupD1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupD2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupD1:
+				person.groupPoints = person.groupPoints + 1
 		
 		
-		leader1 = admin.groupG1
-		leader2 = admin.groupG2
+			leader1 = admin.groupE1
+			leader2 = admin.groupE2
 		
-		if leader1 == person.groupG1 and leader2 == person.groupG2:
-			person.points = person.points + 3
-		elif leader1 == person.groupG1:
-			person.points = person.points + 2
-		elif leader2 == person.groupG2:
-			person.points = person.points + 2
-		elif leader1 == person.groupG2 and leader2 == person.groupG1:
-			person.points = person.points + 2
-		elif leader1 == person.groupG2:
-			person.points = person.points + 1
-		elif leader2 == person.groupG1:
-			person.points = person.points + 1
+			if leader1 == person.groupE1 and leader2 == person.groupE2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupE1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupE2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupE2 and leader2 == person.groupE1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupE2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupE1:
+				person.groupPoints = person.groupPoints + 1
 		
 		
-		leader1 = admin.groupH1
-		leader2 = admin.groupH2
+			leader1 = admin.groupF1
+			leader2 = admin.groupF2
 		
-		if leader1 == person.groupH1 and leader2 == person.groupH2:
-			person.points = person.points + 3
-		elif leader1 == person.groupH1:
-			person.points = person.points + 2
-		elif leader2 == person.groupH2:
-			person.points = person.points + 2
-		elif leader1 == person.groupH2 and leader2 == person.groupH1:
-			person.points = person.points + 2
-		elif leader1 == person.groupH2:
-			person.points = person.points + 1
-		elif leader2 == person.groupH1:
-			person.points = person.points + 1
+			if leader1 == person.groupF1 and leader2 == person.groupF2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupF1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupF2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupF2 and leader2 == person.groupF1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupF2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupF1:
+				person.groupPoints = person.groupPoints + 1
 		
-		if currentLeader == False:
-			currentLeader = person
-			name = "" + str(person.firstName) + " " + str(person.lastName)
-		else:
-			if person.points > currentLeader.points:
+		
+			leader1 = admin.groupG1
+			leader2 = admin.groupG2
+		
+			if leader1 == person.groupG1 and leader2 == person.groupG2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupG1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupG2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupG2 and leader2 == person.groupG1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupG2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupG1:
+				person.groupPoints = person.groupPoints + 1
+		
+		
+			leader1 = admin.groupH1
+			leader2 = admin.groupH2
+		
+			if leader1 == person.groupH1 and leader2 == person.groupH2:
+				person.groupPoints = person.groupPoints + 4
+			elif leader1 == person.groupH1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader2 == person.groupH2:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupH2 and leader2 == person.groupH1:
+				person.groupPoints = person.groupPoints + 2
+			elif leader1 == person.groupH2:
+				person.groupPoints = person.groupPoints + 1
+			elif leader2 == person.groupH1:
+				person.groupPoints = person.groupPoints + 1
+		
+		
+			person.points = 0
+			person.points = person.groupPoints
+		
+		
+			if currentLeader == False:
 				currentLeader = person
 				name = "" + str(person.firstName) + " " + str(person.lastName)
-			elif person.point == currentLeader.points:
-				name += " / " + str(person.firstName) + " " + str(person.lastName)
+			else:
+				if person.groupPoints > currentLeader.groupPoints:
+					currentLeader = person
+					name = "" + str(person.firstName) + " " + str(person.lastName)
+				elif person.points == currentLeader.points:
+					name += " / " + str(person.firstName) + " " + str(person.lastName)
 				
-		person.save()
+			person.save()
 		
-	admin.leader = name
+		admin.leader = name
+		admin.editBracket = True
 	
-	admin.save()
+		admin.save()
+		
+	else:
+		admin.save()
 	
 	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(admin.id,)))
+	
+	
+# Gives points to the Users in userGroup for the bracket
+def sumBracketStage(request, userGroup_id):
+	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+
+	if admin.editBracket:
+		currentLeader = False
+		name = ""
+	
+		for person in admin.user_set.all():
+			person.bracketPoints = 0
+	
+			# First Round
+			if person.win1 == admin.win1:
+				person.bracketPoints = person.bracketPoints + 2
+		
+			if person.win2 == admin.win2:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			if person.win3 == admin.win3:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			if person.win4 == admin.win4:
+				person.bracketPoints = person.bracketPoints + 2
+				
+			if person.win5 == admin.win5:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			if person.win6 == admin.win6:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			if person.win7 == admin.win7:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			if person.win8 == admin.win8:
+				person.bracketPoints = person.bracketPoints + 2
+			
+			# Second Round
+			if person.win9 == admin.win9:
+				person.bracketPoints = person.bracketPoints + 4
+		
+			if person.win10 == admin.win10:
+				person.bracketPoints = person.bracketPoints + 4
+	
+			if person.win11 == admin.win11:
+				person.bracketPoints = person.bracketPoints + 4
+				
+			if person.win12 == admin.win12:
+				person.bracketPoints = person.bracketPoints + 4
+				
+			# Third Round
+			if person.win13 == admin.win13:
+				person.bracketPoints = person.bracketPoints + 8
+		
+			if person.win14 == admin.win14:
+				person.bracketPoints = person.bracketPoints + 8
+			
+			
+			# Final
+			if person.champion == admin.champion:
+				person.bracketPoints = person.bracketPoints + 16
+			
+			if person.third == admin.third:
+				person.bracketPoints = person.bracketPoints + 10
+		
+		
+			person.points = 0
+			person.points = person.groupPoints + person.bracketPoints	
+		
+	
+			if currentLeader == False:
+				currentLeader = person
+				name = "" + str(person.firstName) + " " + str(person.lastName)
+			else:
+				if person.bracketPoints > currentLeader.bracketPoints:
+					currentLeader = person
+					name = "" + str(person.firstName) + " " + str(person.lastName)
+				elif person.points == currentLeader.points:
+					name += " / " + str(person.firstName) + " " + str(person.lastName)	
+		
+			person.save()
+		
+		admin.leader = name
+	
+		admin.save()
+	
+	else:
+		admin.save()
+	
+	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(admin.id,)))
+
