@@ -95,10 +95,15 @@ def bracket(request, user_id):
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
-	context = {'user': person,}
-	
+	context = {'user': person,}	
+		
 	if person.group.edit:
-		return render(request, 'bracket/finish.html', context)	
+		if not person.saved:
+			return render(request, 'bracket/finish.html', context)
+			
+		else:
+			return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
+			
 	else:
 		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 		
@@ -113,6 +118,7 @@ def bracketEdit(request, user_id):
 	context = {'user': person,}
 	
 	if person.group.edit:
+		person.saved = False
 		person.groupA1 = person.group.groupA1
 		person.groupA2 = person.group.groupA2
 		person.groupB1 = person.group.groupB1

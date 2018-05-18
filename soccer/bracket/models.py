@@ -65,6 +65,7 @@ class User(models.Model):
 	bracketPoints = models.IntegerField(default=0)
 	points = models.IntegerField(default=0)
 	group = models.ForeignKey(UserGroup, on_delete=models.CASCADE)
+	saved = models.BooleanField(default=False)
 
 	groupA1 = models.CharField(max_length=30, default="", blank=True)
 	groupA2 = models.CharField(max_length=30, default="", blank=True)
