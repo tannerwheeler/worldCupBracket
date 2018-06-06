@@ -36,7 +36,7 @@
 			</div>
 			<div class="header-piece2">
 				{% if user.group.edit and user.group.editBracket %}
-					<a href=""><button>Change Bracket:<br>Bracket Stage</button></a>
+					<a href="{% url 'bracket:bracketChange' user.id %}"><button>Change Bracket:<br>Bracket Stage</button></a>
 				{% endif %}
 			</div>
 			<div class="header-piece2">

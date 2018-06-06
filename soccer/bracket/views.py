@@ -95,6 +95,9 @@ def userView(request, user_id):
 
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
 		return HttpResponse("userView")
+		
+	if not person.saved:
+		return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
 	
 	
 	context = { 'user': person, }
@@ -219,7 +222,7 @@ def saved(request, user_id):
 		
 		
 # Finishing Bracket after Group Stage		
-def bracketEdit(request, user_id):
+def bracketChange(request, user_id):
 	try:
 		person = User.objects.get(id=user_id)
 	except:
@@ -228,6 +231,9 @@ def bracketEdit(request, user_id):
 		
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
 		return HttpResponse("bracketEdit")
+		
+	if not person.group.edit and not person.group.editBracket:
+		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 		
 	context = {'user': person,}
 	
@@ -880,55 +886,87 @@ def sumBracketStage(request, userGroup_id):
 			# First Round
 			if person.win1 == admin.win1:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win1 == "XX " + person.win1 + " XX"
 		
 			if person.win2 == admin.win2:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win2 == "XX " + person.win2 + " XX"
 			
 			if person.win3 == admin.win3:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win3 == "XX " + person.win3 + " XX"
 			
 			if person.win4 == admin.win4:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win4 == "XX " + person.win4 + " XX"
 				
 			if person.win5 == admin.win5:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win5 == "XX " + person.win5 + " XX"
 			
 			if person.win6 == admin.win6:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win6 == "XX " + person.win6 + " XX"
 			
 			if person.win7 == admin.win7:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win7 == "XX " + person.win7 + " XX"
 			
 			if person.win8 == admin.win8:
 				person.bracketPoints = person.bracketPoints + 2
+			else:
+				person.win8 == "XX " + person.win8 + " XX"
 			
 			# Second Round
 			if person.win9 == admin.win9:
 				person.bracketPoints = person.bracketPoints + 4
+			else:
+				person.win9 == "XX " + person.win9 + " XX"
 		
 			if person.win10 == admin.win10:
 				person.bracketPoints = person.bracketPoints + 4
+			else:
+				person.win10 == "XX " + person.win10 + " XX"
 	
 			if person.win11 == admin.win11:
 				person.bracketPoints = person.bracketPoints + 4
+			else:
+				person.win11 == "XX " + person.win11 + " XX"
 				
 			if person.win12 == admin.win12:
 				person.bracketPoints = person.bracketPoints + 4
+			else:
+				person.win12 == "XX " + person.win12 + " XX"
 				
 			# Third Round
 			if person.win13 == admin.win13:
 				person.bracketPoints = person.bracketPoints + 8
+			else:
+				person.win13 == "XX " + person.win13 + " XX"
 		
 			if person.win14 == admin.win14:
 				person.bracketPoints = person.bracketPoints + 8
+			else:
+				person.win14 == "XX " + person.win14 + " XX"
 			
 			
 			# Final
 			if person.champion == admin.champion:
 				person.bracketPoints = person.bracketPoints + 16
+			else:
+				person.champion == "XX " + person.champion + " XX"
 			
 			if person.third == admin.third:
 				person.bracketPoints = person.bracketPoints + 10
+			else:
+				person.third == "XX " + person.third + " XX"
 		
 		
 			person.points = 0

@@ -15,6 +15,7 @@ urlpatterns = [
 	path('<int:user_id>/choice/', views.choice, name='choice'),
 	path('<int:user_id>/choice/submit/', views.submit, name='submit'),
 	path('<int:user_id>/bracket/', views.bracket, name='bracket'),
+	path('<int:user_id>/bracket/bracketChange/', views.bracketChange, name='bracketChange'),
 	path('<int:user_id>/bracket/saved/', views.saved, name='saved'),
 	path('<int:user_id>/bracket/win', views.win, name='win'),
 	path('<int:user_id>/bracket/dele', views.dele, name='dele'),
