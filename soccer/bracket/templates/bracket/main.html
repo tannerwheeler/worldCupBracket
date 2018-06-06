@@ -1,5 +1,6 @@
 {% load static %}
 
+<!-- This is the Login Page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,10 +16,10 @@
 		<div class="login">
 			<h3>User Login</h3>
 
-			<form action="" method="POST">
+			<form action="{% url 'bracket:userLogin' %}" method="POST">
 			{% csrf_token%}
-				<label for="userNameU">USER NAME:</label><input type="text" name="userNameU" id="userNameU"><br>
-				<label for="passwordU">PASSWORD:</label><input type="password" name="password" id="passwordU"><br>
+				<label for="userNameU">USER NAME:</label><input type="text" name="userName" id="userNameU"><br>
+				<label for="password">PASSWORD:</label><input type="password" name="password" id="passwordU"><br>
 				<input type="submit" value="LOGIN" class="main"><br><br>
 			</form>
 			
@@ -28,25 +29,14 @@
 		<div class="login">
 			<h3>Group Login</h3>
 
-			<form action="" method="POST">
+			<form action="{% url 'bracket:userGroupLogin' %}" method="POST">
 			{% csrf_token%}
 				<label for="userNameG">GROUP NAME:</label><input type="text" name="userNameG" id="userNameG"><br>
-				<label for="passwordG">PASSWORD:</label><input type="password" name="password" id="passwordG"><br>
+				<label for="passwordG">PASSWORD:</label><input type="password" name="passwordG" id="passwordG"><br>
 				<input type="submit" value="LOGIN" class="main"><br><br>
 			</form>
 			
 			<a href="{% url 'bracket:createGroup' %}"><button class="main">Create New Group</button></a>
-		</div>
-		
-		<div class="login">
-			<h3>Admin Login</h3>
-
-			<form action="" method="POST">
-			{% csrf_token%}
-				<label for="userNameA">NAME:</label><input type="text" name="userNameA" id="userNameA"><br>
-				<label for="passwordA">PASSWORD:</label><input type="password" name="password" id="passwordA"><br>
-				<input type="submit" value="LOGIN" class="main"><br><br>
-			</form>
 		</div>
 
 		</main>

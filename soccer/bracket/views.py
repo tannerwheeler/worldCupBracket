@@ -6,13 +6,96 @@ from .models import *
 # Create your views here.
 
 
+
+###################################################################
+#if request.session.get('order', 'none') == str(order_pk) or request.session.get('employee', 'False') == True:
+#        wait_time = WaitTime.objects.last()
+ #       order = get_object_or_404(Order, id=int(order_pk))
+  #      context = {
+    #        'order': order,
+     #       'wait_time': wait_time
+  #      }
+   #     return render(request, 'restaurant/customerOrder.html', context)
+    #else:
+     #   return HttpResponseRedirect(reverse('restaurant:index'),)
+		
+
+
+		
+#request.session['order'] = str(new_order.id)
+#request.session.set_expiry(900)
+
+
+#if request.session.get('employee', 'false') == 'true':
+ #       wait_time = WaitTime.objects.last()
+  #      tables = Table.objects.all()
+   #     context = {
+    #        'wait_time': wait_time,
+     #       'tableList': tables
+      #  }
+       # return render(request, 'restaurant/serverPage.html', context)
+    #else:
+    #    return render(request, 'restaurant/login.html')
+		
+		
+########################################################
+
+
 # Main Page
 def index(request):
 	return render(request, 'bracket/main.html',)
 	
+	
+def userLogin(request):
+	try:
+		person = User.objects.get(userName=request.POST.get('userName'))
+		
+		if str(person.password) != str(request.POST.get('password')):
+			return HttpResponse("wrong Password User")
+	except:
+		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	request.session['userMain'] = str(person.userName + person.password)
+	request.session.set_expiry(900)
+		
+	return HttpResponseRedirect(reverse('bracket:choice', args=(person.id,)))
+
+
+
+def userGroupLogin(request):
+	try:
+		group = UserGroup.objects.get(userName=request.POST.get('userNameG'))
+		
+		if str(group.password) != str(request.POST.get('passwordG')):
+			return HttpResponse("wrong Password User")
+	except:
+		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	request.session['userAdmin'] = str(group.userName + group.password)
+	request.session.set_expiry(900)
+		
+	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(group.id,)))
+	
+	
+def userLogout(request):
+	request.session['userMain'] = "You have been logged out"
+		
+	return HttpResponseRedirect(reverse('bracket:index',))
+	
+	
+def userGroupLogout(request):
+	request.session['userAdmin'] = "You have been logged out!"
+		
+	return HttpResponseRedirect(reverse('bracket:index',))
+	
+	
 # User main view page
 def userView(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
+
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("userView")
+	
 	
 	context = { 'user': person, }
 	
@@ -47,10 +130,15 @@ def userCreate(request):
 			existingGroup.user_set.create(firstName=firstNameG, lastName=lastNameG, userName=userNameG, password=passwordG)
 			existingGroup.save()
 			
+			request.session['userMain'] = str(userNameG + passwordG)
+			request.session.set_expiry(900)
+			
 	except:
 		return render(request, 'bracket/createUser.html', {'error_message': "INVALID GROUP ID"})
+		
+	existingUserName = User.objects.get(userName=userNameG)
 
-	return	HttpResponseRedirect(reverse('bracket:index',))
+	return HttpResponseRedirect(reverse('bracket:userView', args=(existingUserName.id,)))
 	
 	
 # Page to create a userGroup
@@ -84,8 +172,11 @@ def groupCreate(request):
 		#return HttpResponse("else")
 		group = UserGroup(name=nameG, userName=userNameG, password=passwordG, groupID=groupIDG, prize=prizeG)
 		group.save()
+		
+		request.session['userMain'] = str(group.userName + group.password)
+		request.session.set_expiry(900)
 
-		return	HttpResponseRedirect(reverse('bracket:index',))
+		return HttpResponseRedirect(reverse('bracket:userGroupView', args=(group.id,)))
 	
 
 # Finishing Bracket	
@@ -94,6 +185,10 @@ def bracket(request, user_id):
 		person = User.objects.get(id=user_id)
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("bracket")
+		
 		
 	context = {'user': person,}	
 		
@@ -108,12 +203,31 @@ def bracket(request, user_id):
 		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
 		
 		
+
+def saved(request, user_id):
+	person = get_object_or_404(User, pk=user_id)
+	
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("saved")
+	
+	person.saved = True
+	person.save()
+		
+	return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
+
+		
+		
+		
 # Finishing Bracket after Group Stage		
 def bracketEdit(request, user_id):
 	try:
 		person = User.objects.get(id=user_id)
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+		
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("bracketEdit")
 		
 	context = {'user': person,}
 	
@@ -154,6 +268,8 @@ def bracketEdit(request, user_id):
 		person.win14 = ""
 		person.champion = ""
 		person.third = ""
+		
+		person.save()
 	
 		return render(request, 'bracket/finish.html', context)	
 	else:
@@ -166,6 +282,9 @@ def choice(request, user_id):
 		person = User.objects.get(id=user_id)
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
+		
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("choice")
 	
 	if person.group.edit:
 		if not person.win1:
@@ -184,6 +303,10 @@ def choice(request, user_id):
 def submit(request, user_id):
 	#return HttpResponse("Submit")
 	person = User.objects.get(id=user_id)
+	
+	
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("submit")
 	
 	name = request.POST.get('group')
 	
@@ -230,6 +353,10 @@ def submit(request, user_id):
 # Submits the winner and saves to User	
 def win(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
+	
+	
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("win")
 	
 	button = request.POST.get('button')
 	team = request.POST.get('team')
@@ -287,6 +414,10 @@ def win(request, user_id):
 def dele(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 	
+	
+	if request.session.get('userMain', 'none') != str(person.userName + person.password):
+		return HttpResponse("dele")
+	
 	button = request.POST.get('button')
 	
 	if button == "Go Back to Game 1":
@@ -333,6 +464,10 @@ def dele(request, user_id):
 # Main view for adding teams and groups to userGroup
 def adminGroups(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("adminGroups")
+	
 	groups = admin.group_set.all()
 	
 	context = {'groups': groups, 'admin': admin}
@@ -343,6 +478,10 @@ def adminGroups(request, userGroup_id):
 # Adds a group to a userGroup
 def addG(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("addG")
+	
 	groups = admin.group_set.all()
 	
 	if request.POST.get('GroupName') == "":
@@ -369,6 +508,10 @@ def addG(request, userGroup_id):
 # Adds a team to a group in the userGroup
 def addT(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("addT")
+	
 	nameT = request.POST.get('Name')
 	groupName = request.POST.get('group')
 	rankT = request.POST.get('Rank')
@@ -401,6 +544,9 @@ def addT(request, userGroup_id):
 def userGroupView(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
+	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
+		return HttpResponse("userGroupView")
+	
 	context = { 'userGroup': userGroup, }
 	
 	return render(request, 'bracket/winner.html', context,)
@@ -408,6 +554,9 @@ def userGroupView(request, userGroup_id):
 # Changes value of editing for the userGroup
 def userGroupEdit(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("userGroupEdit")
 	
 	if admin.edit:
 		admin.edit = False
@@ -422,6 +571,9 @@ def userGroupEdit(request, userGroup_id):
 # Setting the winners of the groups
 def userStage(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
+		return HttpResponse("userStage")
 	
 	team = request.POST.get('team')
 	position = request.POST.get('position')
@@ -474,6 +626,9 @@ def userStage(request, userGroup_id):
 # Setting the winners of the bracket
 def userBracket(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
+		return HttpResponse("userBracket")
 	
 	team = request.POST.get('team')
 	game = request.POST.get('game')
@@ -536,6 +691,9 @@ def userBracket(request, userGroup_id):
 # Gives points to the Users in the userGroup for  the Groups
 def sumGroupStage(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("sumGroupStage")
 	
 	if not admin.editBracket:
 		currentLeader = False
@@ -708,6 +866,9 @@ def sumGroupStage(request, userGroup_id):
 # Gives points to the Users in userGroup for the bracket
 def sumBracketStage(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
+		return HttpResponse("sumBracketStage")
 
 	if admin.editBracket:
 		currentLeader = False

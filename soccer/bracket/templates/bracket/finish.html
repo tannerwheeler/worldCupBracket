@@ -1,5 +1,6 @@
 {% load static %}
 
+<!-- This is the Bracket Choosing Page -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,9 @@
 	
 <head>
 <body>
+	<header>
+		<a href="{% url 'bracket:userLogout' %}"><button>Logout</button></a>
+	</header>
 	<header>
 		{% if user.win1 == "" %}
 			<h1>Choose Winner of {{ user.groupA1 }} vs {{ user.groupB2 }}</h1>
@@ -410,10 +414,11 @@
 			
 			<p></p>
 			
-			<form action="{% url 'bracket:userView' user.id %}" method="POST">
+			<form action="{% url 'bracket:saved' user.id %}" method="POST">
 			{% csrf_token %}			
 				<input type="submit" name="save" value="Save Bracket">
 			</form>
+			<p>ONCE SAVED YOU CAN'T EDIT YOUR BRACKET</p>
 		</main>
 		{% endif %}
 		
