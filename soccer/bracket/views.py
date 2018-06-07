@@ -888,6 +888,7 @@ def sumGroupStage(request, userGroup_id):
 		
 		admin.leader = name
 		admin.editBracket = True
+		admin.edit = True
 	
 		admin.save()
 		

@@ -34,11 +34,11 @@
 			<a href="{% url 'bracket:userGroupEdit' userGroup.id %}"><button>Allow Editing</button></a><br><br>
 		{% endif %}
 		
-		{% if not userGroup.editBracket %}
+		{% if not userGroup.editBracket and not userGroup.edit %}
 			<p align="center">Click to score group stage and allow bracket editing:<br><a href="{% url 'bracket:sumGroupStage' userGroup.id %}"><button>Score Group Stage</button></a></p>
 		{% endif %}
 		
-		{% if userGroup.editBracket %}
+		{% if userGroup.editBracket and not userGroup.edit%}
 			<p align="center">Click to score bracket stage<a href="{% url 'bracket:sumBracketStage' userGroup.id %}"><button>Score Brackets</button></a></p>
 		{% endif %}
 	
@@ -1011,6 +1011,13 @@
 			</td>
 		</tr>
 		</table>
+	</footer>
+	
+	<br>
+	<br>
+	<footer>
+		<h4>Important Dates:</h4>
+		<p style="text-align:center">June 29th - <br>Group Stage is finished.<br>Initial scoring and Bracket Edit Day.</p>
 	</footer>
 	
 </body>
