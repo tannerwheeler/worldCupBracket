@@ -51,7 +51,7 @@ def userLogin(request):
 		person = User.objects.get(userName=request.POST.get('userName'))
 		
 		if str(person.password) != str(request.POST.get('password')):
-			return HttpResponse("wrong Password User")
+			return HttpResponseRedirect(reverse('bracket:index',))
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
@@ -67,7 +67,7 @@ def userGroupLogin(request):
 		group = UserGroup.objects.get(userName=request.POST.get('userNameG'))
 		
 		if str(group.password) != str(request.POST.get('passwordG')):
-			return HttpResponse("wrong Password User")
+			return HttpResponseRedirect(reverse('bracket:index',))
 	except:
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
@@ -94,7 +94,7 @@ def userView(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("userView")
+		return HttpResponseRedirect(reverse('bracket:index',))
 		
 	if not person.saved:
 		return HttpResponseRedirect(reverse('bracket:bracket', args=(person.id,)))
@@ -141,7 +141,7 @@ def userCreate(request):
 		
 	existingUserName = User.objects.get(userName=userNameG)
 
-	return HttpResponseRedirect(reverse('bracket:userView', args=(existingUserName.id,)))
+	return HttpResponseRedirect(reverse('bracket:choice', args=(existingUserName.id,)))
 	
 	
 # Page to create a userGroup
@@ -190,7 +190,7 @@ def bracket(request, user_id):
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("bracket")
+		return HttpResponseRedirect(reverse('bracket:index',))
 		
 		
 	context = {'user': person,}	
@@ -211,7 +211,7 @@ def saved(request, user_id):
 	person = get_object_or_404(User, pk=user_id)
 	
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("saved")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	person.saved = True
 	person.save()
@@ -230,7 +230,7 @@ def bracketChange(request, user_id):
 		
 		
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("bracketEdit")
+		return HttpResponseRedirect(reverse('bracket:index',))
 		
 	if not person.group.edit and not person.group.editBracket:
 		return HttpResponseRedirect(reverse('bracket:userView', args=(person.id,)))
@@ -290,7 +290,7 @@ def choice(request, user_id):
 		return	HttpResponseRedirect(reverse('bracket:index',))
 		
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("choice")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	if person.group.edit:
 		if not person.win1:
@@ -312,42 +312,70 @@ def submit(request, user_id):
 	
 	
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("submit")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	name = request.POST.get('group')
 	
-	if request.POST['1'] != request.POST['2']:
+	check = "Sven is the best person ever in the world."
+	
+	try:
+		first = request.POST['1']
+	except:
+		first = "Sven is the best person ever in the world."
+		
+	try:
+		second = request.POST['2']
+	except:
+		second = "Sven is the best person ever in the world."
+	
+	if first != second:
 		if name == "Group A":
-			person.groupA1 = request.POST['1']
-			person.groupA2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupA2:
+				person.groupA1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupA1:
+				person.groupA2 = second
 			person.save()
 		elif name == "Group B":
-			person.groupB1 = request.POST['1']
-			person.groupB2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupB2:
+				person.groupB1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupB1:
+				person.groupB2 = second
 			person.save()
 		elif name == "Group C":
-			person.groupC1 = request.POST['1']
-			person.groupC2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupC2:
+				person.groupC1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupC1:
+				person.groupC2 = second
 			person.save()
 		elif name == "Group D":
-			person.groupD1 = request.POST['1']
-			person.groupD2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupD2:
+				person.groupD1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupD1:
+				person.groupD2 = second
 			person.save()
 		elif name == "Group E":
-			person.groupE1 = request.POST['1']
-			person.groupE2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupE2:
+				person.groupE1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupE1:
+				person.groupE2 = second
 			person.save()
 		elif name == "Group F":
-			person.groupF1 = request.POST['1']
-			person.groupF2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupF2:
+				person.groupF1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupF1:
+				person.groupF2 = second
 			person.save()
 		elif name == "Group G":
-			person.groupG1 = request.POST['1']
-			person.groupG2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupG2:
+				person.groupG1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupG1:
+				person.groupG2 = second
 			person.save()
 		elif name == "Group H":
-			person.groupH1 = request.POST['1']
-			person.groupH2 = request.POST['2']
+			if first != "Sven is the best person ever in the world." and first != person.groupH2:
+				person.groupH1 = first
+			if second != "Sven is the best person ever in the world." and second != person.groupH1:
+				person.groupH2 = second
 			person.save()
 		
 	else:
@@ -362,7 +390,7 @@ def win(request, user_id):
 	
 	
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("win")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	button = request.POST.get('button')
 	team = request.POST.get('team')
@@ -422,7 +450,7 @@ def dele(request, user_id):
 	
 	
 	if request.session.get('userMain', 'none') != str(person.userName + person.password):
-		return HttpResponse("dele")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	button = request.POST.get('button')
 	
@@ -472,7 +500,7 @@ def adminGroups(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("adminGroups")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	groups = admin.group_set.all()
 	
@@ -486,7 +514,7 @@ def addG(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("addG")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	groups = admin.group_set.all()
 	
@@ -516,7 +544,7 @@ def addT(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("addT")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	nameT = request.POST.get('Name')
 	groupName = request.POST.get('group')
@@ -551,7 +579,7 @@ def userGroupView(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
-		return HttpResponse("userGroupView")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	context = { 'userGroup': userGroup, }
 	
@@ -562,7 +590,7 @@ def userGroupEdit(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("userGroupEdit")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	if admin.edit:
 		admin.edit = False
@@ -579,7 +607,7 @@ def userStage(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
-		return HttpResponse("userStage")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	team = request.POST.get('team')
 	position = request.POST.get('position')
@@ -634,7 +662,7 @@ def userBracket(request, userGroup_id):
 	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
-		return HttpResponse("userBracket")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	team = request.POST.get('team')
 	game = request.POST.get('game')
@@ -699,7 +727,7 @@ def sumGroupStage(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("sumGroupStage")
+		return HttpResponseRedirect(reverse('bracket:index',))
 	
 	if not admin.editBracket:
 		currentLeader = False
@@ -874,7 +902,7 @@ def sumBracketStage(request, userGroup_id):
 	admin = get_object_or_404(UserGroup, pk=userGroup_id)
 	
 	if request.session.get('userAdmin', 'none') != str(admin.userName + admin.password):
-		return HttpResponse("sumBracketStage")
+		return HttpResponseRedirect(reverse('bracket:index',))
 
 	if admin.editBracket:
 		currentLeader = False
@@ -887,86 +915,86 @@ def sumBracketStage(request, userGroup_id):
 			if person.win1 == admin.win1:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win1 == "XX " + person.win1 + " XX"
+				person.win1 = "XX " + person.win1 + " XX"
 		
 			if person.win2 == admin.win2:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win2 == "XX " + person.win2 + " XX"
+				person.win2 = "XX " + person.win2 + " XX"
 			
 			if person.win3 == admin.win3:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win3 == "XX " + person.win3 + " XX"
+				person.win3 = "XX " + person.win3 + " XX"
 			
 			if person.win4 == admin.win4:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win4 == "XX " + person.win4 + " XX"
+				person.win4 = "XX " + person.win4 + " XX"
 				
 			if person.win5 == admin.win5:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win5 == "XX " + person.win5 + " XX"
+				person.win5 = "XX " + person.win5 + " XX"
 			
 			if person.win6 == admin.win6:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win6 == "XX " + person.win6 + " XX"
+				person.win6 = "XX " + person.win6 + " XX"
 			
 			if person.win7 == admin.win7:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win7 == "XX " + person.win7 + " XX"
+				person.win7 = "XX " + person.win7 + " XX"
 			
 			if person.win8 == admin.win8:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win8 == "XX " + person.win8 + " XX"
+				person.win8 = "XX " + person.win8 + " XX"
 			
 			# Second Round
 			if person.win9 == admin.win9:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win9 == "XX " + person.win9 + " XX"
+				person.win9 = "XX " + person.win9 + " XX"
 		
 			if person.win10 == admin.win10:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win10 == "XX " + person.win10 + " XX"
+				person.win10 = "XX " + person.win10 + " XX"
 	
 			if person.win11 == admin.win11:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win11 == "XX " + person.win11 + " XX"
+				person.win11 = "XX " + person.win11 + " XX"
 				
 			if person.win12 == admin.win12:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win12 == "XX " + person.win12 + " XX"
+				person.win12 = "XX " + person.win12 + " XX"
 				
 			# Third Round
 			if person.win13 == admin.win13:
 				person.bracketPoints = person.bracketPoints + 8
 			else:
-				person.win13 == "XX " + person.win13 + " XX"
+				person.win13 = "XX " + person.win13 + " XX"
 		
 			if person.win14 == admin.win14:
 				person.bracketPoints = person.bracketPoints + 8
 			else:
-				person.win14 == "XX " + person.win14 + " XX"
+				person.win14 = "XX " + person.win14 + " XX"
 			
 			
 			# Final
 			if person.champion == admin.champion:
 				person.bracketPoints = person.bracketPoints + 16
 			else:
-				person.champion == "XX " + person.champion + " XX"
+				person.champion = "XX " + person.champion + " XX"
 			
 			if person.third == admin.third:
 				person.bracketPoints = person.bracketPoints + 10
 			else:
-				person.third == "XX " + person.third + " XX"
+				person.third = "XX " + person.third + " XX"
 		
 		
 			person.points = 0
