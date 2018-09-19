@@ -76,6 +76,13 @@ td {
 	font-variant: small-caps;
 }
 
+.teamLoss {
+	text-decoration: underline;
+	font-variant: small-caps;
+	background-color: black;
+	color: white;
+}
+
 table {
 	border: solid;
 }

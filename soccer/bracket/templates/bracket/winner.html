@@ -23,7 +23,8 @@
 		<p style="border: solid;padding:10px">Number of People in Group: {{ userGroup.user_set.count }}</p>
 		<p style="border: solid;padding:10px">Current Leader: {{ userGroup.leader }}</p>
 		<p>Number of Groups: {{ userGroup.group_set.count }}</p>
-		<a  href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
+		<a href="{% url 'bracket:adminGroups' userGroup.id %}"><button>Add Groups and Teams</button></a><br><br>
+		<a href="{% url 'bracket:viewAllBrackets' userGroup.id %}"><button>View All Brackets</button></a><br><br>
 		
 		
 		

@@ -30,4 +30,5 @@ urlpatterns = [
 	path('userAdmin/<int:userGroup_id>/create/addT/', views.addT, name='addT'),
 	path('userAdmin/<int:userGroup_id>/view/sumGroup/', views.sumGroupStage, name='sumGroupStage'),
 	path('userAdmin/<int:userGroup_id>/view/sumBracket/', views.sumBracketStage, name='sumBracketStage'),
+	path('userAdmin/<int:userGroup_id>/view/allBracket/', views.viewAllBrackets, name='viewAllBrackets'),
 ]

@@ -1,49 +1,24 @@
 {% load static %}
 
-<!-- This is the User View -->
+<!-- This is the Group Admin View -->
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ user.firstName }}'s View</title>
+
+	<title>User Brackets for {{ userGroup.name }}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'bracket/style.css' %}">
-<head>
+	
+</head>
 <body>
 	<header>
-		<a href="{% url 'bracket:userLogout' %}"><button>Logout</button></a>
+		<a href="{% url 'bracket:userGroupView' userGroup.id%}"><h1>ALL USER BRACKET VIEW</h1></a>
 	</header>
-	<div class="user-header">
-		<div class="user-header-piece1">
-			<div class="header-piece1">
-				<h1>{{ user.firstName }} {{ user.lastName }}</h1>
-			</div>
-			<div class="header-piece1">	
-				<h2>Points: {{ user.points }}</h2>
-			</div>
-			<div class="header-piece1">
-				<h2>Group: {{ user.group.name }}</h2>
-			</div>
-			<div class="header-piece1">
-				<h3>Current Leader: {{ user.group.leader }}</h3>
-			</div>
-		</div>
-		<div class="user-header-piece2">
-			<div class="header-piece2">
-			
-			</div>
-			<div class="header-piece2">
-				{% if user.group.edit and user.group.editBracket %}
-					<a href="{% url 'bracket:bracketChange' user.id %}"><button>Change Bracket:<br>Bracket Stage</button></a>
-				{% endif %}
-			</div>
-			<div class="header-piece2">
-				<p align="center">Ultimate Prize:<br>{{ user.group.prize }}
-			</div>
-		</div>
-	</div>
 	
-	
-	
+	{% for user in allUsers %}
 	<br><br>
+	<main>
+		<h2>{{ user.firstName }} {{user.lastName }}: {{ user.points }} pts.</h2>
+	</main>
 	<footer>
 		<table>
 		<tr>
@@ -101,10 +76,10 @@
 			</td>
 			<td>
 			{% if user.win1 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win1 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win1 %}
 						<p class="team">{{ user.win1 }}</p>
-					{% elif user.group.win1 == user.win1 %}
+					{% elif userGroup.win1 == user.win1 %}
 						<p class="team">{{ user.win1 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win1 }}</p>
@@ -137,10 +112,10 @@
 			</td>
 			<td>
 			{% if user.win5 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win5 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win5 %}
 						<p class="team">{{ user.win5 }}</p>
-					{% elif user.group.win5 == user.win5 %}
+					{% elif userGroup.win5 == user.win5 %}
 						<p class="team">{{ user.win5 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win5 }}</p>
@@ -219,10 +194,10 @@
 			</td>
 			<td>
 			{% if user.win9 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win9 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win9 %}
 						<p class="team">{{ user.win9 }}</p>
-					{% elif user.group.win9 == user.win9 %}
+					{% elif userGroup.win9 == user.win9 %}
 						<p class="team">{{ user.win9 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win9 }}</p>
@@ -251,10 +226,10 @@
 			</td>
 			<td>
 			{% if user.win11 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win11 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win11 %}
 						<p class="team">{{ user.win11 }}</p>
-					{% elif user.group.win11 == user.win11 %}
+					{% elif userGroup.win11 == user.win11 %}
 						<p class="team">{{ user.win11 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win11 }}</p>
@@ -333,10 +308,10 @@
 			</td>
 			<td>
 			{% if user.win2 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win2 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win2 %}
 						<p class="team">{{ user.win2 }}</p>
-					{% elif user.group.win2 == user.win2 %}
+					{% elif userGroup.win2 == user.win2 %}
 						<p class="team">{{ user.win2 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win2 }}</p>
@@ -364,10 +339,10 @@
 				<p class="symbol">Champions</p>
 				
 				{% if user.champion %}
-					{% if user.group.editBracket %}
-						{% if not user.group.champion %}
+					{% if userGroup.editBracket %}
+						{% if not userGroup.champion %}
 							<p class="team">{{ user.champion }}</p>
-						{% elif user.group.champion == user.champion %}
+						{% elif userGroup.champion == user.champion %}
 							<p class="">{{ user.champion }}</p>
 						{% else %}
 							<p class="teamLoss">{{ user.champion }}</p>
@@ -387,10 +362,10 @@
 			</td>
 			<td>
 			{% if user.win6 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win6 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win6 %}
 						<p class="team">{{ user.win6 }}</p>
-					{% elif user.group.win6 == user.win6 %}
+					{% elif userGroup.win6 == user.win6 %}
 						<p class="team">{{ user.win6 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win6 }}</p>
@@ -471,10 +446,10 @@
 			</td>
 			<td>
 			{% if user.win13 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win13 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win13 %}
 						<p class="team">{{ user.win13 }}</p>
-					{% elif user.group.win13 == user.win13 %}
+					{% elif userGroup.win13 == user.win13 %}
 						<p class="team">{{ user.win13 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win13 }}</p>
@@ -494,10 +469,10 @@
 			</td>
 			<td>
 			{% if user.win14 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win14 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win14 %}
 						<p class="team">{{ user.win14 }}</p>
-					{% elif user.group.win14 == user.win14 %}
+					{% elif userGroup.win14 == user.win14 %}
 						<p class="team">{{ user.win14 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win14 }}</p>
@@ -574,10 +549,10 @@
 			</td>
 			<td>
 			{% if user.win3 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win3 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win3 %}
 						<p class="team">{{ user.win3 }}</p>
-					{% elif user.group.win3 == user.win3 %}
+					{% elif userGroup.win3 == user.win3 %}
 						<p class="team">{{ user.win3 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win3 }}</p>
@@ -605,10 +580,10 @@
 				<p class="team">3rd Place</p>
 				
 				{% if user.third %}
-					{% if user.group.editBracket %}
-						{% if not user.group.third %}
+					{% if userGroup.editBracket %}
+						{% if not userGroup.third %}
 							<p class="team">{{ user.third }}</p>
-						{% elif user.group.third == user.third %}
+						{% elif userGroup.third == user.third %}
 							<p class="">{{ user.third }}</p>
 						{% else %}
 							<p class="teamLoss">{{ user.third }}</p>
@@ -628,10 +603,10 @@
 			</td>
 			<td>
 			{% if user.win7 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win7 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win7 %}
 						<p class="team">{{ user.win7 }}</p>
-					{% elif user.group.win7 == user.win7 %}
+					{% elif userGroup.win7 == user.win7 %}
 						<p class="team">{{ user.win7 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win7 }}</p>
@@ -710,10 +685,10 @@
 			</td>
 			<td>
 			{% if user.win10 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win10 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win10 %}
 						<p class="team">{{ user.win10 }}</p>
-					{% elif user.group.win10 == user.win10 %}
+					{% elif userGroup.win10 == user.win10 %}
 						<p class="team">{{ user.win10 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win10 }}</p>
@@ -742,10 +717,10 @@
 			</td>
 			<td>
 			{% if user.win12 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win12 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win12 %}
 						<p class="team">{{ user.win12 }}</p>
-					{% elif user.group.win12 == user.win12 %}
+					{% elif userGroup.win12 == user.win12 %}
 						<p class="team">{{ user.win12 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win12 }}</p>
@@ -824,10 +799,10 @@
 			</td>
 			<td>
 			{% if user.win4 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win4 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win4 %}
 						<p class="team">{{ user.win4 }}</p>
-					{% elif user.group.win4 == user.win4 %}
+					{% elif userGroup.win4 == user.win4 %}
 						<p class="team">{{ user.win4 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win4 }}</p>
@@ -860,10 +835,10 @@
 			</td>
 			<td>
 			{% if user.win8 %}
-				{% if user.group.editBracket %}
-					{% if not user.group.win8 %}
+				{% if userGroup.editBracket %}
+					{% if not userGroup.win8 %}
 						<p class="team">{{ user.win8 }}</p>
-					{% elif user.group.win8 == user.win8 %}
+					{% elif userGroup.win8 == user.win8 %}
 						<p class="team">{{ user.win8 }}</p>
 					{% else %}
 						<p class="teamLoss">{{ user.win8 }}</p>
@@ -937,12 +912,10 @@
 		</tr>
 		</table>
 	</footer>
-	
+	{% endfor %}
+
+
 	<br>
 	<br>
-	<footer>
-		<h4>Important Dates:</h4>
-		<p style="text-align:center">June 29th - <br>Group Stage is finished.<br>Initial scoring and Bracket Edit Day.</p>
-	</footer>
-<body>
-<html>
+</body>
+</html>

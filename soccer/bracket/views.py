@@ -916,86 +916,87 @@ def sumBracketStage(request, userGroup_id):
 			if person.win1 == admin.win1:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win1 = "XX " + person.win1 + " XX"
+				person.win1 = person.win1
 		
 			if person.win2 == admin.win2:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win2 = "XX " + person.win2 + " XX"
+				person.win2 = person.win2
 			
 			if person.win3 == admin.win3:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win3 = "XX " + person.win3 + " XX"
+				person.win3 = person.win3
 			
 			if person.win4 == admin.win4:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win4 = "XX " + person.win4 + " XX"
+				person.win4 = person.win4
 				
 			if person.win5 == admin.win5:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win5 = "XX " + person.win5 + " XX"
+				person.win5 = person.win5
 			
 			if person.win6 == admin.win6:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win6 = "XX " + person.win6 + " XX"
+				person.win6 = person.win6
 			
 			if person.win7 == admin.win7:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win7 = "XX " + person.win7 + " XX"
+				person.win7 = person.win7
 			
 			if person.win8 == admin.win8:
 				person.bracketPoints = person.bracketPoints + 2
 			else:
-				person.win8 = "XX " + person.win8 + " XX"
+				person.win8 = person.win8
 			
 			# Second Round
 			if person.win9 == admin.win9:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win9 = "XX " + person.win9 + " XX"
+				person.win9 = person.win9
 		
 			if person.win10 == admin.win10:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win10 = "XX " + person.win10 + " XX"
+				person.win10 = person.win10
 	
 			if person.win11 == admin.win11:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win11 = "XX " + person.win11 + " XX"
+				person.win11 = person.win11
 				
 			if person.win12 == admin.win12:
 				person.bracketPoints = person.bracketPoints + 4
 			else:
-				person.win12 = "XX " + person.win12 + " XX"
+				person.win12 = person.win12
 				
 			# Third Round
 			if person.win13 == admin.win13:
 				person.bracketPoints = person.bracketPoints + 8
 			else:
-				person.win13 = "XX " + person.win13 + " XX"
+				person.win13 = person.win13
 		
 			if person.win14 == admin.win14:
 				person.bracketPoints = person.bracketPoints + 8
 			else:
-				person.win14 = "XX " + person.win14 + " XX"
+				person.win14 = person.win14
 			
 			
 			# Final
 			if person.champion == admin.champion:
 				person.bracketPoints = person.bracketPoints + 16
 			else:
-				person.champion = "XX " + person.champion + " XX"
+				person.champion = person.champion
 			
+			# Third
 			if person.third == admin.third:
 				person.bracketPoints = person.bracketPoints + 10
 			else:
-				person.third = "XX " + person.third + " XX"
+				person.third = person.third
 		
 		
 			person.points = 0
@@ -1022,4 +1023,19 @@ def sumBracketStage(request, userGroup_id):
 		admin.save()
 	
 	return HttpResponseRedirect(reverse('bracket:userGroupView', args=(admin.id,)))
+	
+	
+def viewAllBrackets(request, userGroup_id):
+	userGroup = get_object_or_404(UserGroup, pk=userGroup_id)
+	
+	if request.session.get('userAdmin', 'none') != str(userGroup.userName + userGroup.password):
+		return HttpResponseRedirect(reverse('bracket:index',))
+		
+	users = userGroup.user_set.order_by('-points')
+		
+	context = { 
+		'userGroup': userGroup,
+		'allUsers': users,
+		}
 
+	return render(request, 'bracket/allBracket.html', context)
